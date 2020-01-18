@@ -22,16 +22,19 @@ class Game extends Component {
             showResult: false,
             questionSet: null,
             question: 0,
-            feedback: "Answer as fast as you can!"
+            feedback: "Answer as fast as you can!",
+            answers: []
         };
     }
 
     computeAnswer = (questions, answer, correctAnswer) => {
+        let result = false;
         if (answer === correctAnswer) {
             this.setState((prevState, props) => ({
                 score: prevState.score + 1,
                 feedback: "Fantastic!"
             }));
+            result = true;
         } else {
             this.setState({
                 feedback: "Try harder..."
@@ -41,6 +44,8 @@ class Game extends Component {
             questionSet: questions,
             responses: prevState.responses < this.props.numberOfQuestions ? prevState.responses + 1 : this.props.numberOfQuestions
         }));
+
+        return result;
     };
 
     playAgain = () => {
@@ -53,7 +58,8 @@ class Game extends Component {
             showResult: false,
             questionSet: null,
             question: 0,
-            feedback: "Answer as fast as you can!"
+            feedback: "Answer as fast as you can!",
+            answers: []
         });
     };
 
@@ -100,7 +106,7 @@ class Game extends Component {
         e.preventDefault();
         const value = e.currentTarget.value;
 
-        this.computeAnswer(questions, value, answer);
+        let result = this.computeAnswer(questions, value, answer);
 
         if (this.state.question === this.props.numberOfQuestions - 1) {
             this.setState({
@@ -110,6 +116,7 @@ class Game extends Component {
         }
 
         this.setState((prevState, props) => ({
+            answers: [...prevState.answers, result],
             question: prevState.question + 1
         }));
     }
