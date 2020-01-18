@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import DEFAULT_GAME_SETTINGS from '../services/settingsService';
+import DEFAULT_GAME_SETTINGS from '../../services/Settings';
 
 class Settings extends Component {
     constructor(props) {
