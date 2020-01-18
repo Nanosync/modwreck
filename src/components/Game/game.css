@@ -119,3 +119,12 @@
 .text-left {
     text-align: left;
 }
+
+.green-text {
+    color: green;
+    font-weight: bolder;
+}
+
+.red-text {
+    color: darkred;
+}
