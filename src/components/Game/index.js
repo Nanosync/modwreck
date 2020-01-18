@@ -98,7 +98,7 @@ class Game extends Component {
                                         <QuestionBox
                                             question={module.description}
                                             options={optionsBank}
-                                            selected={answer => this.computeAnswer(answer, optionsBank)}
+                                            selected={answer => this.computeAnswer(answer, module.moduleCode.toString() + " " + module.title.toString())}
                                         />
                                     )
                                 )}
