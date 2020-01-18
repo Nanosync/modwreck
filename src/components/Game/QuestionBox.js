@@ -1,21 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-const QuestionBox = ({ question, options, selected }) => {
-    //setAnswer: function to update answer variable
+const QuestionBox = ({question, options, selected}) => {
+    const [disable, setDisable] = useState(0);
     const [answer, setAnswer] = useState(options);
-    //index from answer array
     return (
-        <div className="questionBox">
+        <div className= "questionBox">
             <div className="question">{question}</div>
-            {answer.map((text, index) => (
+            {answer.map((text) => (
                 <button
-                    key={index}
                     className="answerBtn"
                     onClick={() => {
-                        //rewrite array with chosen answer
+                        setDisable(!disable);
                         setAnswer([text]);
                         selected(text);
                     }}
+                    disabled={disable}
                 >
                     {text}
                 </button>
