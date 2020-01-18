@@ -5,6 +5,7 @@ import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 import Timer from './Timer'
 
 import './game.css'
+import { connect } from 'react-redux';
 
 class Game extends Component {
     constructor(props) {
@@ -31,29 +32,33 @@ class Game extends Component {
     };
 
     playAgain = () => {
-        this.getQuestions();
+        const { settings } = this.props;
+        this.getQuestions(settings);
         //condition fails during render
         this.setState({
             score: 0,
             responses: 0,
             showResult: false,
-
         });
     };
-    getQuestions = () => {
+    getQuestions = (settings) => {
         fetch("https://api.nusmods.com/v2/2019-2020/moduleInfo.json")
             .then(res => res.json())
             .then(json => {
                 this.setState({
                     isLoaded: true,
-                    questionBank: json.filter(
-                        list => list.faculty.includes("Computing")).filter(list => list.description !== "" && !list.moduleCode.endsWith("R")).sort(() => 0.5 - Math.random()).slice(0, 5)
+                    questionBank: json.filter(list => list.faculty.includes(settings.category) || settings.category === "All")
+                        .filter(list => list.description !== "" && !list.moduleCode.endsWith("R"))
+                        .sort(() => 0.5 - Math.random())
+                        .slice(0, 5)
+
                 })
             });
     };
 
     componentDidMount() {
-        this.getQuestions();
+        const { settings } = this.props;
+        this.getQuestions(settings);
     }
 
     handleTimeout = () => {
@@ -63,7 +68,7 @@ class Game extends Component {
     }
 
     render() {
-        var { isLoaded, modules } = this.state;
+        var { isLoaded } = this.state;
 
         if (!isLoaded) {
             return <h1> Loading... </h1>;
@@ -78,6 +83,8 @@ class Game extends Component {
 
             optionsBank = optionsBank.sort(() => Math.random() - 0.5);
 
+            console.log(this.props.settings);
+
             return (
                 <div className="quizContainer">
                     {this.state.questionBank.length > 0
@@ -89,7 +96,7 @@ class Game extends Component {
                                 <CountdownCircleTimer
                                     // isLinearGradient={true}
                                     isPlaying
-                                    durationSeconds={10}
+                                    durationSeconds={this.props.settings.time * 60}
                                     colors={[
                                         ['#004700', .33],
                                         ['#F7B801', .33],
@@ -109,7 +116,7 @@ class Game extends Component {
                             {this.state.questionBank.map(
                                 (module) => (
                                     <QuestionBox
-                                        question={module.description}
+                                        question={module.description.split('. ')[0]}
                                         options={optionsBank}
                                         selected={answer => this.computeAnswer(answer, module.moduleCode.toString() + " " + module.title.toString())}
                                     />
@@ -128,5 +135,8 @@ class Game extends Component {
     }
 }
 
+const mapStateToProps = (state, ownProps) => ({
+    settings: state.settings
+});
 
-export default Game;
+export default connect(mapStateToProps,null)(Game);

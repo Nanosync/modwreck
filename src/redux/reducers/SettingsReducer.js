@@ -1,8 +1,8 @@
-import { SET_QUESTION_COUNT, SET_DIFFICULTY, SET_CATEGORY } from '../types';
+import { SET_QUESTION_COUNT, SET_TIME, SET_CATEGORY } from '../types';
 
 const DEFAULT_GAME_SETTINGS = {
-    numberOfQuestions: 25,
-    difficulty: "Easy",
+    numberOfQuestions: 5,
+    time: "3",
     category: "All"
 };
 
@@ -10,8 +10,8 @@ export default (state = DEFAULT_GAME_SETTINGS, action) => {
     switch (action.type) {
         case SET_QUESTION_COUNT:
             return { ...state, numberOfQuestions: action.payload };
-        case SET_DIFFICULTY:
-            return { ...state, difficulty: action.payload };
+        case SET_TIME:
+            return { ...state, time: action.payload };
         case SET_CATEGORY:
             return {...state, category: action.payload };
         default:
