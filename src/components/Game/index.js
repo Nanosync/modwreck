@@ -1,40 +1,38 @@
 import React, { Component } from "react";
+import Grid from '@material-ui/core/Grid';
 import QuestionBox from "./QuestionBox";
 import Result from "./Result";
+import Timer from './Timer';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
-import Timer from './Timer'
-
-import './game.css'
+import './game.css';
 import { connect } from 'react-redux';
+import { Button } from '@material-ui/core';
+import { getQuestions } from '../../redux/actions';
 
 class Game extends Component {
     constructor(props) {
         super(props);
-        window.scrollTo(0, 0);
-
+        this.state = {
+            score: 0,
+            responses: 0,
+            showResult: false,
+            questionSet: null,
+            question: 0
+        };
     }
-
-    state = {
-        questionBank: [],
-        score: 0,
-        responses: 0, //no. of questions answered
-        isLoaded: false,
-        showResult: false,
-    };
 
     computeAnswer = (answer, correctAnswer) => {
         if (answer === correctAnswer) {
-            this.setState({
-                score: this.state.score + 1
-            });
+            this.setState((prevState, props) => ({
+                score: prevState.score + 1
+            }));
         }
-        this.setState({
-            responses: this.state.responses < 5 ? this.state.responses + 1 : 5
-        });
+        this.setState((prevState, props) => ({
+            responses: prevState.responses < this.props.numberOfQuestions ? prevState.responses + 1 : this.props.numberOfQuestions
+        }));
     };
 
     playAgain = () => {
-
         const { settings } = this.props;
         this.getQuestions(settings);
         //condition fails during render
@@ -45,24 +43,9 @@ class Game extends Component {
             showResult: false,
         });
     };
-    getQuestions = (settings) => {
-        fetch("https://api.nusmods.com/v2/2019-2020/moduleInfo.json")
-            .then(res => res.json())
-            .then(json => {
-                this.setState({
-                    isLoaded: true,
-                    questionBank: json.filter(list => list.faculty.includes(settings.category) || settings.category === "All")
-                        .filter(list => list.description !== "" && !list.moduleCode.endsWith("R"))
-                        .sort(() => 0.5 - Math.random())
-                        .slice(0, 5)
-
-                })
-            });
-    };
 
     componentDidMount() {
-        const { settings } = this.props;
-        this.getQuestions(settings);
+        this.props.getQuestions();
     }
 
     handleTimeout = () => {
@@ -71,33 +54,94 @@ class Game extends Component {
         })
     }
 
+    getQuestionSet() {
+        const { settings, questions } = this.props;
+        const { numberOfQuestions } = settings;
+
+
+        if (questions === null || questions.length === 0) {
+            return null;
+        }
+
+        console.log("Question set called", questions);
+
+        // Copy array
+        let array = questions.data.slice(0, questions.data.length).filter(i => i.description !== "");
+
+        // Shuffle array
+        const shuffled = array.sort(() => 0.5 - Math.random());
+
+        // Get sub-array of first n elements after shuffled
+        const questionSet = shuffled.slice(0, numberOfQuestions);
+
+        //console.log(questionSet);
+        
+        return questionSet;
+    }
+
+    handleClick(e, answer) {
+        e.preventDefault();
+        const value = e.currentTarget.value;
+
+        this.computeAnswer(value, answer);
+
+        if (this.state.question === this.props.numberOfQuestions - 1) {
+            this.setState({
+                showResult: true
+            });
+            return;
+        }
+
+        this.setState((prevState, props) => ({
+            question: prevState.question + 1
+        }));
+    }
+
     render() {
-        var { isLoaded } = this.state;
+        const { questions } = this.props;
 
-        if (!isLoaded) {
-            return <h1> Loading... </h1>;
-        } else {
+        if (questions.length === 0) {
+            return <div>Loading...</div>;
+        }
 
-            var optionsBank = [];
+        if (this.state.question >= this.props.settings.numberOfQuestions) {
+            return <div>Game over</div>;
+        }
 
-            this.state.questionBank.map(
-                (module) => (
-                    optionsBank.push((module.moduleCode.toString() + " " + module.title.toString()))
-                ))
+        const questionSet = this.getQuestionSet();
+        const question = questionSet[this.state.question];
 
-            optionsBank = optionsBank.sort(() => Math.random() - 0.5);
+        const answers = [];
+        answers.push(question);
 
-            console.log(this.props.settings);
+        let arr = questionSet.slice(0, questionSet.length);
+        const shuffled = arr.sort(() => 0.5 - Math.random());
+        //for (let i = 0; i < 3; i++) {
+        let i = -1;
+        while (answers.length < 4) {
+            i++;
 
-            return (
-                <div className="quizContainer">
-                    {this.state.questionBank.length > 0
-                        && !this.state.showResult
-                        && this.state.responses < 5
-                        ?
-                        <div>
-                            <div className="QuizHeader">
-                                <CountdownCircleTimer
+            if (i >= shuffled.length) {
+                break;
+            }
+
+            if (shuffled[i].moduleCode === question.moduleCode) {
+                continue;
+            }
+
+            answers.push(shuffled[i]);
+        }
+
+        answers.sort(() => 0.5 - Math.random());
+        console.log(answers);
+
+        return (
+            <div className="question-container">
+                <Grid
+                    container
+                    direction="row">
+                    <Grid item xs={12} className="question">
+                    <CountdownCircleTimer
                                     // isLinearGradient={true}
                                     isPlaying
                                     durationSeconds={this.props.settings.time * 60}
@@ -115,32 +159,31 @@ class Game extends Component {
                                     }}
                                     onComplete = {this.handleTimeout}
                                 />
-                            </div>
+                        <p>{question.description}</p>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <Button variant="contained" fullWidth value={answers[0].moduleCode} onClick={e => this.handleClick(e, question.moduleCode)}>A) {answers[0].moduleCode} {answers[0].title}</Button>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <Button variant="contained" fullWidth value={answers[1].moduleCode} onClick={e => this.handleClick(e, question.moduleCode)}>B) {answers[1].moduleCode} {answers[1].title}</Button>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <Button variant="contained" fullWidth value={answers[2].moduleCode} onClick={e => this.handleClick(e, question.moduleCode)}>C) {answers[2].moduleCode} {answers[2].title}</Button>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <Button variant="contained" fullWidth value={answers[3].moduleCode} onClick={e => this.handleClick(e, question.moduleCode)}>D) {answers[3].moduleCode} {answers[3].title}</Button>
+                    </Grid>
 
-                            {this.state.questionBank.map(
-                                (module) => (
-                                    <QuestionBox
-                                        question={module.description.split('. ')[0]}
-                                        options={optionsBank}
-                                        selected={answer => this.computeAnswer(answer, module.moduleCode.toString() + " " + module.title.toString())}
-                                    />
-                                )
-                            )}
-                        </div>
-                        : null
-                    }
+                </Grid>
+            </div>
+        );
 
-                    {this.state.responses === 5 || this.state.showResult ? (
-                        <Result score={this.state.score} playAgain={this.playAgain} />
-                    ) : null}
-                </div>
-            );
-        }
     }
 }
 
 const mapStateToProps = (state, ownProps) => ({
-    settings: state.settings
+    settings: state.settings,
+    questions: state.questions
 });
 
-export default connect(mapStateToProps,null)(Game);
+export default connect(mapStateToProps, { getQuestions })(Game);
