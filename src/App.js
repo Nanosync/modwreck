@@ -18,9 +18,11 @@ function App() {
     return (
         <div className="App">
             <div className="App-header">
-                <h1 className="game-title">ModWreck</h1>
+                <div className="game-title">
+                    <h1>ModWreck</h1>
+                </div>
                 <div className="spinner-container">
-                    <ScalingSquaresSpinner color="red" size="100" className="spinner"/>
+                    <ScalingSquaresSpinner color="grey" size="150" className="spinner"/>
                 </div>
             </div>
             <div className="">

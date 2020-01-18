@@ -11,7 +11,7 @@ class Welcome extends Component {
     
     render() {
         return (
-            <div className="spinner-container">
+            <div>
                 <div className="setting-btn">
                     <Button component={ Link } to="/settings" variant="contained" color="primary">
                         Setting
