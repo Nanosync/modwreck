@@ -10,9 +10,16 @@ class Welcome extends Component {
     render() {
         return (
             <div>
-                <Button component={ Link } to="/settings" variant="contained" color="primary">
-                Setting
-                </Button>
+                <div>
+                    <Button component={ Link } to="/settings" variant="contained" color="primary">
+                        Setting
+                    </Button>
+                </div>
+                <div>
+                    <Button component={ Link } to="/game" variant="contained" color="primary">
+                        Play
+                    </Button>
+                </div>
             </div>
         );
     }
