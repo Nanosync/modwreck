@@ -73,13 +73,15 @@
 
 .spinner-container {
   z-index: 0;
-  position: relative;
+  position: absolute;
 
 }
 
 .game-title {
   z-index: 1;
   position: relative;
+  font-size: 32px;
+  color: skyblue;
 }
 
 .setting-btn {
