@@ -66,4 +66,34 @@
 }
 .homeBtn {
   margin-top: 1%;
+  position: absolute;
+  font-size: 1.4em;
+  padding: 10px;
+  top: 350px;
+  background-color: rgb(46, 182, 46);
+  color: rgb(255, 255, 255);
+  width: 150px;
+  left: 100px;
+  right: 0px;
+  margin: auto;
+  outline: none;
+  cursor: pointer;
+}
+
+.test {
+  border: 10px solid red;
+}
+
+.question-container {
+  margin-right: 10%;
+  margin-left: 10%;
+}
+
+.question {
+  padding-top: 5%;
+  padding-bottom: 5%;
+}
+
+.answer-button {
+  min-width: 50%;
 }
