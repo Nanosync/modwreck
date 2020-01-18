@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import QuestionBox from "./QuestionBox";
 import Result from "./Result";
 import Timer from './Timer'
@@ -61,10 +61,10 @@ class Game extends Component {
     }
 
     render() {
-        var {isLoaded, modules} = this.state;
+        var { isLoaded, modules } = this.state;
 
         if (!isLoaded) {
-            return <div> Loading... </div>;
+            return <h1> Loading... </h1>;
         } else {
 
             var optionsBank = [];
@@ -72,16 +72,15 @@ class Game extends Component {
             this.state.questionBank.map(
                 (module) => (
                     optionsBank.push((module.moduleCode.toString() + " " + module.title.toString()))
-        ))
+                ))
 
             optionsBank = optionsBank.sort(() => Math.random() - 0.5);
 
             return (
                 <div className="quizContainer">
-                    {console.log(this.state.questionBank)}
                     {this.state.questionBank.length > 0
-                    && !this.state.showResult
-                    && this.state.responses < 5
+                        && !this.state.showResult
+                        && this.state.responses < 5
                         ?
                         <div>
                             <div className="tableTitle">
@@ -91,7 +90,7 @@ class Game extends Component {
                                                 <h1>QuizBee</h1>
                                             </th> */}
                                         <th className="textCenter">
-                                            <Timer minutes={0} seconds={10} onTimeout={this.handleTimeout}/>
+                                            <Timer minutes={0} seconds={1} onTimeout={this.handleTimeout} />
                                         </th>
                                     </tr>
                                 </table>
@@ -111,7 +110,7 @@ class Game extends Component {
                     }
 
                     {this.state.responses === 5 || this.state.showResult ? (
-                        <Result score={this.state.score} playAgain={this.playAgain}/>
+                        <Result score={this.state.score} playAgain={this.playAgain} />
                     ) : null}
                 </div>
             );

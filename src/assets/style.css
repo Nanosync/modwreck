@@ -56,7 +56,7 @@
   text-align: center;
 }
 
-.playBtn {
+.playbtn {
   position: absolute;
   font-size: 1.4em;
   padding: 10px;
@@ -81,15 +81,37 @@
   z-index: 1;
   position: relative;
   font-size: 32px;
-  color: skyblue;
+  color: darkblue;
+  font-weight: bolder;
 
 }
 
 .setting-btn {
-  margin-top: 5%;
-}
-
-.play-btn {
   margin-top: 1%;
 }
 
+.play-btn {
+  display: flex;
+  margin-top: 5%;
+  right: 0;
+  font-size: 34px;
+  padding-right: 40%;
+  padding-left: 40%;
+  height: 8vh;
+}
+
+.game-description {
+  margin-top: 10%;
+}
+
+.settingMargin {
+  margin-top: 5%;
+}
+
+.formMarginbottom {
+  margin-bottom: 3%;
+}
+
+.settingLabel {
+  font-size: 20px;
+}

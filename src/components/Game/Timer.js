@@ -11,9 +11,9 @@ class Timer extends React.Component {
         super(props);
         // || to show default values incase it is empty
         this.state = {
-            minutes: this.props.minutes || this.props.minutes == 0 ? 0 : 3,
-            seconds: this.props.seconds || 0,
-            onTimeout: this.props.onTimeout || this.nullOnTimeout,
+            minutes: 3,
+            seconds: 0,
+            onTimeout: this.nullOnTimeout,
         }
     }
 
@@ -21,9 +21,9 @@ class Timer extends React.Component {
 
     }
 
-    componentDidMount() {
+    startTimer = () => {
         this.myInterval = setInterval(() => {
-            const {seconds, minutes} = this.state
+            const { seconds, minutes } = this.state
 
             if (seconds > 0) {
                 this.setState({
@@ -41,8 +41,34 @@ class Timer extends React.Component {
                         seconds: 59
                     })
                 }
-            } 
+            }
         }, 1000)
+
+    }
+    componentDidMount() {
+        var newState = {
+            minutes: 3,
+            seconds: 0,
+            onTimeout: this.props.onTimeout
+        }
+
+        if (this.props.minutes === 0) {
+            newState.minutes = 0
+        } else if (this.props.minutes) {
+            newState.minutes = this.props.minutes
+        }
+
+        if (this.props.seconds === 0) {
+            newState.seconds = 0
+        } else if (this.props.seconds) {
+            newState.seconds = this.props.seconds
+        }
+
+        if (this.props.onTimeout) {
+            newState.onTimeout = this.props.onTimeout
+        }
+
+        this.setState(newState, () => this.startTimer())
     }
 
     componentWillUnmount() {
@@ -53,7 +79,7 @@ class Timer extends React.Component {
         const { minutes, seconds } = this.state
         return (
             <div className='timer'>
-                { minutes === 0 && seconds === 0 ? <h1>Busted!</h1>
+                {minutes === 0 && seconds === 0 ? <h1>Busted!</h1>
                     : <h1>Time Remaining: {minutes}:{seconds < 10 ? `0${seconds}` : seconds}</h1>
                 }
             </div>

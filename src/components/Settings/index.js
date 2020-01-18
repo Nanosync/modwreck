@@ -12,7 +12,7 @@ import { setNumberOfQuestions, setDifficulty, setCategory } from '../../redux/ac
 const styles = theme => ({
     formControl: {
       margin: theme.spacing(1),
-      minWidth: 200
+      minWidth: 300,
     },
     selectEmpty: {
       marginTop: theme.spacing(2),
@@ -25,9 +25,10 @@ class Settings extends Component {
         const { numberOfQuestions, difficulty, category } = settings;
 
         return (
-            <div>
+            <div class="settingMargin">
+                <div>
                 <FormControl className={classes.formControl}>
-                    <InputLabel id="questions">Number of Questions</InputLabel>
+                    <InputLabel id="questions"><span className="settingLabel"><b>Number of Questions</b></span></InputLabel>
                     <Select
                         labelId="questions"
                         id="questions"
@@ -41,8 +42,10 @@ class Settings extends Component {
                         <MenuItem value={25}>25</MenuItem>
                     </Select>
                 </FormControl>
+                </div>
+                <div>
                 <FormControl className={classes.formControl}>
-                    <InputLabel id="difficulty">Difficulty</InputLabel>
+                    <InputLabel id="difficulty"><span className="settingLabel"><b>Difficulty</b></span></InputLabel>
                     <Select
                         labelId="difficulty"
                         id="difficulty"
@@ -54,8 +57,10 @@ class Settings extends Component {
                         <MenuItem value="Hard">Hard</MenuItem>
                     </Select>
                 </FormControl>
+                </div>
+                <div className="formMarginbottom">
                 <FormControl className={classes.formControl}>
-                    <InputLabel id="category">Category</InputLabel>
+                    <InputLabel id="category" className="settingLabel"><span className="settingLabel"><b>Category</b></span></InputLabel>
                     <Select
                         labelId="category"
                         id="category"
@@ -89,6 +94,7 @@ class Settings extends Component {
                         <MenuItem value="YST Conservatory of Music">YST Conservatory of Music</MenuItem>
                     </Select>
                 </FormControl>
+                </div>
                 <Button component={Link} to="/" variant="contained" color="primary">
                     Save
                 </Button>

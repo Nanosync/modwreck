@@ -48,30 +48,23 @@
 
 .score-board {
   position: relative;
-  height: 700px;
+  height: 600px;
   width: 100%;
   align-items: center;
 }
 
 .score {
-  position: absolute;
+    margin-top: -5%;
+  position: relative;
   width: 100%;
   font-size: 3em;
-  top: 250px;
+  /* top: 250px; */
   text-align: center;
 }
 
 .playBtn {
-  position: absolute;
-  font-size: 1.4em;
-  padding: 10px;
-  top: 350px;
-  background-color: rgb(46, 182, 46);
-  color: rgb(255, 255, 255);
-  width: 150px;
-  left: 100px;
-  right: 0px;
-  margin: auto;
-  outline: none;
-  cursor: pointer;
+  margin-top: 5%;
+}
+.homeBtn {
+  margin-top: 1%;
 }

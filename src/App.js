@@ -4,6 +4,7 @@ import SettingsPage from './components/Settings';
 import GamePage from './components/Game';
 import './assets/App.css'
 import {ScalingSquaresSpinner} from "react-epic-spinners";
+import ParticlesBg from 'particles-bg';
 
 
 import {
@@ -19,10 +20,10 @@ function App() {
         <div className="App">
             <div className="App-header">
                 <div className="game-title">
-                    <h1 className="game-title-font">ModWreck</h1>
+                    <h1 className="game-title-font"><b>ModWreck</b></h1>
                 </div>
                 <div className="spinner-container">
-                    <ScalingSquaresSpinner color="grey" size="150" className="spinner"/>
+                    <ScalingSquaresSpinner color="#e1e1e1" size="150" className="spinner"/>
                 </div>
             </div>
             <div className="">
@@ -36,6 +37,7 @@ function App() {
                     </div>
                 </Router>
             </div>
+            <ParticlesBg color="grey" type="square" bg={true} />
         </div>
     );
 }

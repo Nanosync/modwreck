@@ -22,7 +22,7 @@
     justify-content: center;
     font-size: calc(10px + 2vmin);
     color: white;
-    background-image: linear-gradient(to right, grey, black, grey);
+    background-image: linear-gradient(to right, skyblue, white, lightgreen);
 }
 
 .App-link {
