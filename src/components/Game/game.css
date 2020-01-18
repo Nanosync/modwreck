@@ -109,5 +109,13 @@
 }
 
 .make-it-smaller {
-    padding: 10px 20px 10px 20px;
+    display: flex;
+    margin-top: 5%;
+    padding-right: 10%;
+    padding-left: 10%;
+    height: 8vh;
+}
+
+.text-left {
+    text-align: left;
 }

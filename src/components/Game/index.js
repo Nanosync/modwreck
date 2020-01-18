@@ -9,6 +9,9 @@ import './game.css';
 import { connect } from 'react-redux';
 import { Button } from '@material-ui/core';
 import { getQuestions } from '../../redux/actions';
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 
 class Game extends Component {
     constructor(props) {
@@ -112,7 +115,10 @@ class Game extends Component {
                 <h2>Score: {this.state.score}</h2>
                 <p>Answers: </p>
                 {this.state.questionSet ?
-                    this.state.questionSet.map((i, index) => <p>{index + 1}. {i.moduleCode} {i.title}<br />{i.description}</p>)
+                    this.state.questionSet.map((i, index) => <ExpansionPanel>
+                        <ExpansionPanelSummary>{index + 1}. {i.moduleCode} {i.title}</ExpansionPanelSummary>
+                        <ExpansionPanelDetails><p className="text-left">{i.description}</p></ExpansionPanelDetails>
+                    </ExpansionPanel>)
                     : <p>You did not answer anything!</p>
                 }
                 <div className="play-btn">
