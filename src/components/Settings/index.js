@@ -7,7 +7,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Button from "@material-ui/core/Button/Button";
 import { connect } from 'react-redux';
-import { setNumberOfQuestions, setDifficulty, setCategory } from '../../redux/actions';
+import { setNumberOfQuestions, setTime, setCategory } from '../../redux/actions';
 
 const styles = theme => ({
     formControl: {
@@ -22,7 +22,7 @@ const styles = theme => ({
 class Settings extends Component {      
     render() {
         const { classes, settings } = this.props;
-        const { numberOfQuestions, difficulty, category } = settings;
+        const { numberOfQuestions, time, category } = settings;
 
         return (
             <div class="settingMargin">
@@ -45,16 +45,19 @@ class Settings extends Component {
                 </div>
                 <div>
                 <FormControl className={classes.formControl}>
-                    <InputLabel id="difficulty"><span className="settingLabel"><b>Difficulty</b></span></InputLabel>
+                    <InputLabel id="difficulty"></InputLabel>
+                    <InputLabel id="time"><span className="settingLabel"><b>Time (Minutes)</b></span></InputLabel>
                     <Select
-                        labelId="difficulty"
-                        id="difficulty"
-                        value={difficulty}
-                        onChange={e => this.props.setDifficulty(e.target.value)}
+                        labelId="time"
+                        id="time"
+                        value={time}
+                        onChange={e => this.props.setTime(e.target.value)}
                     >
-                        <MenuItem value="Easy">Easy</MenuItem>
-                        <MenuItem value="Medium">Medium</MenuItem>
-                        <MenuItem value="Hard">Hard</MenuItem>
+                        <MenuItem value={1}>1</MenuItem>
+                        <MenuItem value={2}>2</MenuItem>
+                        <MenuItem value={3}>3</MenuItem>
+                        <MenuItem value={4}>4</MenuItem>
+                        <MenuItem value={5}>5</MenuItem>
                     </Select>
                 </FormControl>
                 </div>
@@ -108,4 +111,4 @@ const mapStateToProps = (state, ownProps) => ({
     settings: state.settings
 });
 
-export default withStyles(styles)(connect(mapStateToProps, { setNumberOfQuestions, setDifficulty, setCategory })(Settings));
+export default withStyles(styles)(connect(mapStateToProps, { setNumberOfQuestions, setTime, setCategory })(Settings));
