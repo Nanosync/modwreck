@@ -70,7 +70,7 @@ class Game extends Component {
 
             this.state.questionBank.map(
                 (module) => (
-                    optionsBank.push(module.moduleCode)
+                    optionsBank.push((module.moduleCode.toString() + " " + module.title.toString()))
                 ))
 
             return (

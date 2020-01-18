@@ -3,6 +3,7 @@ import WelcomePage from './components/Welcome';
 import SettingsPage from './components/Settings';
 import GamePage from './components/Game';
 import './assets/App.css'
+import {SwappingSquaresSpinner} from "react-epic-spinners";
 
 
 import {
@@ -12,10 +13,11 @@ import {
     Switch
 } from 'react-router-dom';
 
+
 function App() {
     return (
         <div className="App">
-            <div>
+            <div className="App-header">
                 <h1>ModWreck</h1>
                 <Router>
                     <div>
