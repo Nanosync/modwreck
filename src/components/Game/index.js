@@ -3,6 +3,7 @@ import QuestionBox from "./QuestionBox";
 import Result from "./Result";
 import Timer from './Timer'
 import './game.css'
+import { connect } from 'react-redux';
 
 class Game extends Component {
     constructor(props) {
@@ -38,20 +39,25 @@ class Game extends Component {
 
         });
     };
-    getQuestions = () => {
+    getQuestions = (settings) => {
         fetch("https://api.nusmods.com/v2/2019-2020/moduleInfo.json")
             .then(res => res.json())
             .then(json => {
                 this.setState({
                     isLoaded: true,
-                    questionBank: json.filter(
-                        list => list.faculty.includes("Computing")).filter(list => list.description !== "" && !list.moduleCode.endsWith("R")).sort(() => 0.5 - Math.random()).slice(0, 5)
+                    questionBank: json.filter(list => list.faculty.includes(settings.category) || settings.category === "All")
+                        .filter(list => list.description !== "" && !list.moduleCode.endsWith("R"))
+                        .sort(() => 0.5 - Math.random())
+                        .slice(0, 5)
+
                 })
             });
     };
 
     componentDidMount() {
-        this.getQuestions();
+        console.log("mount", this.props);
+        const { settings } = this.props;
+        this.getQuestions(settings);
     }
 
     handleTimeout = () => {
@@ -118,5 +124,8 @@ class Game extends Component {
     }
 }
 
+const mapStateToProps = (state, ownProps) => ({
+    settings: state.settings
+});
 
-export default Game;
+export default connect(mapStateToProps,null)(Game);
