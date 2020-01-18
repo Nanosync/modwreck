@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 const Result = ({ score, playAgain }) => (
     <div className="score-board">

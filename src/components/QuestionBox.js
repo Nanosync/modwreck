@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
 const QuestionBox = ({ question, options, selected }) => {
     //setAnswer: function to update answer variable
