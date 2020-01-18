@@ -21,18 +21,24 @@ class Game extends Component {
             responses: 0,
             showResult: false,
             questionSet: null,
-            question: 0
+            question: 0,
+            feedback: "Answer as fast as you can!"
         };
     }
 
     computeAnswer = (questions, answer, correctAnswer) => {
         if (answer === correctAnswer) {
             this.setState((prevState, props) => ({
-                questionSet: questions,
-                score: prevState.score + 1
+                score: prevState.score + 1,
+                feedback: "Fantastic!"
             }));
+        } else {
+            this.setState({
+                feedback: "Try harder..."
+            });
         }
         this.setState((prevState, props) => ({
+            questionSet: questions,
             responses: prevState.responses < this.props.numberOfQuestions ? prevState.responses + 1 : this.props.numberOfQuestions
         }));
     };
@@ -46,7 +52,8 @@ class Game extends Component {
             responses: 0,
             showResult: false,
             questionSet: null,
-            question: 0
+            question: 0,
+            feedback: "Answer as fast as you can!"
         });
     };
 
@@ -180,12 +187,13 @@ class Game extends Component {
                     container
                     direction="row">
                     <Grid item xs={12} className="question">
-                        <p>{this.state.question + 1} / {questionSet.length}</p>
+                        <p>{this.state.feedback}</p>
+                        <p>{this.state.question + 1} / {questionSet.length} answered</p>
                         <CountdownCircleTimer
                             // isLinearGradient={true}
                             size={80}
                             isPlaying
-                            durationSeconds={this.props.settings.time}
+                            durationSeconds={this.props.settings.time * 60}
                             colors={[
                                 ['#00ff00', .33],
                                 ['#F7B801', .33],
@@ -202,7 +210,7 @@ class Game extends Component {
                         />
                     </Grid>
                     <Grid item xs={12}>
-                            <p className="question-text">{question.description}</p>
+                            <p className="question-text">{question.description.substring(0, question.description.indexOf('.') + 1)}</p>
                         </Grid>
                         <Grid item xs={6}>
                             <div className="make-it-smaller">
