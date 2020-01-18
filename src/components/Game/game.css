@@ -18,7 +18,7 @@
 .quizContainer .tableTitle {
     position: relative;
     background-color: rgba(0, 0, 0, 1);
-    color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
     padding: 20px;
     font-size: 1.8em;
     border-radius: 5px;
@@ -43,6 +43,7 @@
 
 .timer {
     height: 100%;
+    color: white;
 }
 
 .score-board {

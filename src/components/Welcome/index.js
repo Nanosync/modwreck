@@ -12,9 +12,6 @@ class Welcome extends Component {
     render() {
         return (
             <div className="spinner-container">
-                <div>
-                    <SwappingSquaresSpinner color="skyblue" size="200" className="spinner" animationDuration="2500"/>
-                </div>
                 <div className="setting-btn">
                     <Button component={ Link } to="/settings" variant="contained" color="primary">
                         Setting
