@@ -38,6 +38,17 @@ class App extends Component {
             responses: 0
         });
     };
+    getQuestions = () => {
+        fetch("https://api.nusmods.com/v2/2019-2020/moduleInfo.json")
+            .then(res => res.json())
+            .then(json => {
+                this.setState({
+                    isLoaded: true,
+                    questionBank: json.filter(
+                        list => list.faculty.includes("Computing")).filter(list => list.description != "" && !list.moduleCode.endsWith("R")).sort(() => 0.5 - Math.random()).slice(0, 5)
+                })
+            });
+    };
 
     componentDidMount() {
         this.getQuestions();
