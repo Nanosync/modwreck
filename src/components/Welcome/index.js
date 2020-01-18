@@ -13,12 +13,12 @@ class Welcome extends Component {
         return (
             <div>
                 <div className="setting-btn">
-                    <Button component={ Link } to="/settings" variant="contained" color="primary">
+                    <Button component={ Link } to="/settings" variant="contained" color="primary" size="large">
                         Setting
                     </Button>
                 </div>
                 <div className="play-btn">
-                    <Button component={ Link } to="/game" variant="contained" color="secondary">
+                    <Button component={ Link } to="/game" variant="contained" color="secondary" size="large">
                         Play
                     </Button>
                 </div>

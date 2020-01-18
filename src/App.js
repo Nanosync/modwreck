@@ -19,7 +19,7 @@ function App() {
         <div className="App">
             <div className="App-header">
                 <div className="game-title">
-                    <h1>ModWreck</h1>
+                    <h1 className="game-title-font">ModWreck</h1>
                 </div>
                 <div className="spinner-container">
                     <ScalingSquaresSpinner color="grey" size="150" className="spinner"/>
