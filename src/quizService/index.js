@@ -64,7 +64,7 @@ const qBank = [
   },
   {
     question:
-      "In the video-game franchise Kingdom Hearts, the main protagonist, carries a weapon with what shape?",
+      "In the video-Game franchise Kingdom Hearts, the main protagonist, carries a weapon with what shape?",
     answers: ["Key", "Sword", "Pen", "Cellphone"],
     correct: "Key",
     questionId: "839754"
