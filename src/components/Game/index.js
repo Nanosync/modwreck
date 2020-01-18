@@ -30,13 +30,13 @@ class Game extends Component {
     };
 
     playAgain = () => {
-        this.getQuestions();
+        const { settings } = this.props;
+        this.getQuestions(settings);
         //condition fails during render
         this.setState({
             score: 0,
             responses: 0,
             showResult: false,
-
         });
     };
     getQuestions = (settings) => {
