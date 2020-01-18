@@ -82,7 +82,7 @@ class Game extends Component {
         // Copy array and filter it
         let array = questions.data
             .slice(0, questions.data.length)
-            .filter(i => i.description !== "" && !i.moduleCode.endsWith("R"))
+            .filter(i => i.description.trim() !== "" && !i.moduleCode.endsWith("R"))
             .filter(i => i.faculty.includes(settings.category) || settings.category === "All");
 
         // Shuffle array
@@ -188,7 +188,7 @@ class Game extends Component {
                     direction="row">
                     <Grid item xs={12} className="question">
                         <p>{this.state.feedback}</p>
-                        <p>{this.state.question + 1} / {questionSet.length} answered</p>
+                        <p>{this.state.question} / {questionSet.length} answered</p>
                         <CountdownCircleTimer
                             // isLinearGradient={true}
                             size={80}
