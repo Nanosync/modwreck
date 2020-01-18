@@ -37,7 +37,7 @@ class Game extends Component {
                 this.setState({
                     isLoaded: true,
                     questionBank: json.filter(
-                        list => list.faculty.includes("Computing")).filter(list => list.description != "").sort(() => 0.5 - Math.random()).slice(0, 5)
+                        list => list.faculty.includes("Computing")).filter(list => list.description != "" && !list.moduleCode.endsWith("R")).sort(() => 0.5 - Math.random()).slice(0, 5)
                 })
             });
     };
