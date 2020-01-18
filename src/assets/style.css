@@ -94,8 +94,6 @@
 .play-btn {
   display: flex;
   margin-top: 5%;
-  right: 0;
-  font-size: 34px;
   padding-right: 40%;
   padding-left: 40%;
   height: 8vh;
