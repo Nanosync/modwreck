@@ -1,4 +1,5 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import QuestionBox from "./QuestionBox";
 import Result from "./Result";
@@ -22,9 +23,10 @@ class Game extends Component {
         };
     }
 
-    computeAnswer = (answer, correctAnswer) => {
+    computeAnswer = (questions, answer, correctAnswer) => {
         if (answer === correctAnswer) {
             this.setState((prevState, props) => ({
+                questionSet: questions,
                 score: prevState.score + 1
             }));
         }
@@ -76,11 +78,11 @@ class Game extends Component {
         return questionSet;
     }
 
-    handleClick(e, answer) {
+    handleClick(e, questions, answer) {
         e.preventDefault();
         const value = e.currentTarget.value;
 
-        this.computeAnswer(value, answer);
+        this.computeAnswer(questions, value, answer);
 
         if (this.state.question === this.props.numberOfQuestions - 1) {
             this.setState({
@@ -94,6 +96,27 @@ class Game extends Component {
         }));
     }
 
+    showGameOver() {
+        return (
+            <div>
+                Game over<br />
+                Score: {this.state.score}<br />
+                Answers:<br />
+                {this.state.questionSet.map((i, index) => <p>{index + 1}. {i.moduleCode}</p>)}
+                <div className="play-btn">
+                    <Button component={Link} to="/game" variant="contained" color="secondary" size="large" fullWidth>
+                        Play Again
+                    </Button>
+                </div>
+                <div className="setting-btn">
+                    <Button component={Link} to="/" variant="contained" color="primary" size="large">
+                        Home
+                    </Button>
+                </div>
+            </div>
+        )
+    }
+
     render() {
         const { questions } = this.props;
 
@@ -101,11 +124,11 @@ class Game extends Component {
             return <div>Loading...</div>;
         }
 
-        if (this.state.question >= this.props.settings.numberOfQuestions) {
-            return <div>Game over</div>;
+        if (this.state.question >= this.props.settings.numberOfQuestions || this.state.showResult) {
+            return this.showGameOver();
         }
 
-        const questionSet = this.getQuestionSet();
+        const questionSet = this.state.questionSet === null ? this.getQuestionSet() : this.state.questionSet;
         const question = questionSet[this.state.question];
 
         const answers = [];
@@ -137,9 +160,11 @@ class Game extends Component {
                 <Grid
                     container
                     direction="row">
-                    <Grid item xs={12} className="question">
-                    <CountdownCircleTimer
+                        <Grid item xs={12} className="question">
+                            <p>{this.state.question + 1} / {questionSet.length}</p>
+                        <CountdownCircleTimer
                                     // isLinearGradient={true}
+                                    size={80}
                                     isPlaying
                                     durationSeconds={this.props.settings.time * 60}
                                     colors={[
@@ -150,25 +175,28 @@ class Game extends Component {
                                     renderTime={(remainingTime) => {
                                         return (
                                             <div>
-                                                <h1>{remainingTime}</h1>
+                                                {remainingTime}
                                             </div>
                                         )
                                     }}
                                     onComplete = {this.handleTimeout}
                                 />
+                        </Grid>
+                    <Grid item xs={12}>
+
                         <p>{question.description}</p>
                     </Grid>
                     <Grid item xs={6}>
-                        <Button variant="contained" fullWidth value={answers[0].moduleCode} onClick={e => this.handleClick(e, question.moduleCode)}>A) {answers[0].moduleCode} {answers[0].title}</Button>
+                        <Button variant="contained" fullWidth value={answers[0].moduleCode} onClick={e => this.handleClick(e, questionSet, question.moduleCode)}>A) {answers[0].moduleCode} {answers[0].title}</Button>
                     </Grid>
                     <Grid item xs={6}>
-                        <Button variant="contained" fullWidth value={answers[1].moduleCode} onClick={e => this.handleClick(e, question.moduleCode)}>B) {answers[1].moduleCode} {answers[1].title}</Button>
+                        <Button variant="contained" fullWidth value={answers[1].moduleCode} onClick={e => this.handleClick(e, questionSet, question.moduleCode)}>B) {answers[1].moduleCode} {answers[1].title}</Button>
                     </Grid>
                     <Grid item xs={6}>
-                        <Button variant="contained" fullWidth value={answers[2].moduleCode} onClick={e => this.handleClick(e, question.moduleCode)}>C) {answers[2].moduleCode} {answers[2].title}</Button>
+                        <Button variant="contained" fullWidth value={answers[2].moduleCode} onClick={e => this.handleClick(e, questionSet, question.moduleCode)}>C) {answers[2].moduleCode} {answers[2].title}</Button>
                     </Grid>
                     <Grid item xs={6}>
-                        <Button variant="contained" fullWidth value={answers[3].moduleCode} onClick={e => this.handleClick(e, question.moduleCode)}>D) {answers[3].moduleCode} {answers[3].title}</Button>
+                        <Button variant="contained" fullWidth value={answers[3].moduleCode} onClick={e => this.handleClick(e, questionSet, question.moduleCode)}>D) {answers[3].moduleCode} {answers[3].title}</Button>
                     </Grid>
 
                 </Grid>
