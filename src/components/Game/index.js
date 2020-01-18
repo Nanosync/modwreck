@@ -55,7 +55,6 @@ class Game extends Component {
     };
 
     componentDidMount() {
-        console.log("mount", this.props);
         const { settings } = this.props;
         this.getQuestions(settings);
     }
@@ -67,7 +66,7 @@ class Game extends Component {
     }
 
     render() {
-        var { isLoaded, modules } = this.state;
+        var { isLoaded } = this.state;
 
         if (!isLoaded) {
             return <h1> Loading... </h1>;
