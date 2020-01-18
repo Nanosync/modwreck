@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import {Link} from 'react-router-dom';
+import Button from '@material-ui/core/Button';
 
 class Welcome extends Component {
     constructor(props) {
@@ -7,7 +9,11 @@ class Welcome extends Component {
     
     render() {
         return (
-            <div>Hello World</div>
+            <div>
+                <Button component={ Link } to="/settings" variant="contained" color="primary">
+                Setting
+                </Button>
+            </div>
         );
     }
 }
