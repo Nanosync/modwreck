@@ -16,6 +16,7 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 class Game extends Component {
     constructor(props) {
         super(props);
+        console.log("current", new Date().getTime()/1000)
         this.state = {
             score: 0,
             responses: 0,
@@ -23,7 +24,9 @@ class Game extends Component {
             questionSet: null,
             question: 0,
             feedback: "Answer as fast as you can!",
-            answers: []
+            answers: [],
+            startTime: new Date().getTime() / 1000,
+            endTime: new Date().getTime() / 1000,
         };
     }
 
@@ -59,7 +62,8 @@ class Game extends Component {
             questionSet: null,
             question: 0,
             feedback: "Answer as fast as you can!",
-            answers: []
+            answers: [],
+            startTime: new Date().getTime() / 1000
         });
     };
 
@@ -71,7 +75,8 @@ class Game extends Component {
 
     handleTimeout = () => {
         this.setState({
-            showResult: true
+            showResult: true,
+            endTime: new Date().getTime() / 1000
         })
     }
 
@@ -110,7 +115,8 @@ class Game extends Component {
 
         if (this.state.question === this.props.numberOfQuestions - 1) {
             this.setState({
-                showResult: true
+                showResult: true,
+                endTime: new Date().getTime()/1000
             });
             return;
         }
@@ -122,30 +128,33 @@ class Game extends Component {
     }
 
     showGameOver() {
+        console.log(this.state.startTime)
+        console.log(this.state.endTime)
         return (
-            <div className="white-background">
-                <br/>
-                <h1>Game over</h1>
-                <h2>Score: {this.state.score}</h2>
-                <p>Answers: </p>
-                {this.state.questionSet ?
-                    this.state.questionSet.map((i, index) => <ExpansionPanel>
-                        <ExpansionPanelSummary>{index + 1}. {i.moduleCode} {i.title}</ExpansionPanelSummary>
-                        <ExpansionPanelDetails><p className="text-left">{i.description}</p></ExpansionPanelDetails>
-                    </ExpansionPanel>)
-                    : <p>You did not answer anything!</p>
-                }
-                <div className="play-btn">
-                    <Button component={Link} to="/game" variant="contained" color="secondary" size="large" fullWidth onClick={() => this.playAgain()}>
-                        Play Again
+        <div className="white-background">
+            <br />
+            <h1>Game over</h1>
+            <h2>Score: {this.state.score}</h2>
+            <h2>Time: {new Date().getTime()/1000 - this.state.startTime}</h2>
+            <p>Answers: </p>
+            {this.state.questionSet ?
+                this.state.questionSet.map((i, index) => <ExpansionPanel>
+                    <ExpansionPanelSummary>{index + 1}. {i.moduleCode} {i.title}</ExpansionPanelSummary>
+                    <ExpansionPanelDetails><p className="text-left">{i.description}</p></ExpansionPanelDetails>
+                </ExpansionPanel>)
+                : <p>You did not answer anything!</p>
+            }
+            <div className="play-btn">
+                <Button component={Link} to="/game" variant="contained" color="secondary" size="large" fullWidth onClick={() => this.playAgain()}>
+                    Play Again
                     </Button>
-                </div>
-                <div className="setting-btn">
-                    <Button component={Link} to="/" variant="contained" color="primary" size="large">
-                        Home
-                    </Button>
-                </div>
             </div>
+            <div className="setting-btn">
+                <Button component={Link} to="/" variant="contained" color="primary" size="large">
+                    Home
+                    </Button>
+            </div>
+        </div>
         );
     }
 
@@ -189,34 +198,34 @@ class Game extends Component {
 
         return (
             <div className="white-background">
-            <div className="question-container">
-                <Grid
-                    container
-                    direction="row">
-                    <Grid item xs={12} className="question">
-                        <p>{this.state.feedback}</p>
-                        <p>{this.state.question} / {questionSet.length} answered</p>
-                        <CountdownCircleTimer
-                            // isLinearGradient={true}
-                            size={80}
-                            isPlaying
-                            durationSeconds={this.props.settings.time * 60}
-                            colors={[
-                                ['#00ff00', .33],
-                                ['#F7B801', .33],
-                                ['#ff0000']
-                            ]}
-                            renderTime={(remainingTime) => {
-                                return (
-                                    <div>
-                                        {remainingTime}
-                                    </div>
-                                )
-                            }}
-                            onComplete={this.handleTimeout}
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
+                <div className="question-container">
+                    <Grid
+                        container
+                        direction="row">
+                        <Grid item xs={12} className="question">
+                            <p>{this.state.feedback}</p>
+                            <p>{this.state.question} / {questionSet.length} answered</p>
+                            <CountdownCircleTimer
+                                // isLinearGradient={true}
+                                size={80}
+                                isPlaying
+                                durationSeconds={this.props.settings.time * 60}
+                                colors={[
+                                    ['#00ff00', .33],
+                                    ['#F7B801', .33],
+                                    ['#ff0000']
+                                ]}
+                                renderTime={(remainingTime) => {
+                                    return (
+                                        <div>
+                                            {remainingTime}
+                                        </div>
+                                    )
+                                }}
+                                onComplete={this.handleTimeout}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
                             <p className="question-text">{question.description.substring(0, question.description.indexOf('.') + 1)}</p>
                         </Grid>
                         <Grid item xs={6}>
@@ -226,17 +235,17 @@ class Game extends Component {
                         </Grid>
                         <Grid item xs={6}>
                             <div className="make-it-smaller">
-                            <Button size="large" variant="contained" color="secondary" fullWidth value={answers[1].moduleCode} onClick={e => this.handleClick(e, questionSet, question.moduleCode)}>B) {answers[1].moduleCode} {answers[1].title}</Button>
+                                <Button size="large" variant="contained" color="secondary" fullWidth value={answers[1].moduleCode} onClick={e => this.handleClick(e, questionSet, question.moduleCode)}>B) {answers[1].moduleCode} {answers[1].title}</Button>
                             </div>
                         </Grid>
                         <Grid item xs={6}>
                             <div className="make-it-smaller">
-                            <Button size="large" variant="contained" color="secondary" fullWidth value={answers[2].moduleCode} onClick={e => this.handleClick(e, questionSet, question.moduleCode)}>C) {answers[2].moduleCode} {answers[2].title}</Button>
+                                <Button size="large" variant="contained" color="secondary" fullWidth value={answers[2].moduleCode} onClick={e => this.handleClick(e, questionSet, question.moduleCode)}>C) {answers[2].moduleCode} {answers[2].title}</Button>
                             </div>
                         </Grid>
                         <Grid item xs={6}>
                             <div className="make-it-smaller">
-                            <Button size="large" variant="contained" color="primary" fullWidth value={answers[3].moduleCode} onClick={e => this.handleClick(e, questionSet, question.moduleCode)}>D) {answers[3].moduleCode} {answers[3].title}</Button>
+                                <Button size="large" variant="contained" color="primary" fullWidth value={answers[3].moduleCode} onClick={e => this.handleClick(e, questionSet, question.moduleCode)}>D) {answers[3].moduleCode} {answers[3].title}</Button>
                             </div>
                         </Grid>
 
