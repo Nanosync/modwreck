@@ -1,4 +1,4 @@
-import { SET_QUESTION_COUNT, SET_TIME, SET_CATEGORY } from '../types';
+import { SET_QUESTION_COUNT, SET_TIME, SET_CATEGORY, GET_QUESTIONS } from '../types';
 import getQuestionFromSite from '../../apis/question';
 
 export const setNumberOfQuestions = (numQuestions) => ({
@@ -18,5 +18,5 @@ export const setCategory = (category) => ({
 
 export const getQuestions = () => async (dispatch) => {
     const response = await getQuestionFromSite();
-    dispatch({ type: 'GET_QUESTIONS', payload: response });
+    dispatch({ type: GET_QUESTIONS, payload: response });
 };

@@ -36,18 +36,21 @@ class Game extends Component {
 
     playAgain = () => {
         const { settings } = this.props;
-        this.getQuestions(settings);
         //condition fails during render
         window.scrollTo(0, 0);
         this.setState({
             score: 0,
             responses: 0,
             showResult: false,
+            questionSet: null,
+            question: 0
         });
     };
 
     componentDidMount() {
-        this.props.getQuestions();
+        if (this.props.questions && this.props.questions.length === 0) {
+            this.props.getQuestions();
+        }
     }
 
     handleTimeout = () => {
@@ -60,15 +63,17 @@ class Game extends Component {
         const { settings, questions } = this.props;
         const { numberOfQuestions } = settings;
 
-
         if (questions === null || questions.length === 0) {
             return null;
         }
 
         console.log("Question set called", questions);
 
-        // Copy array
-        let array = questions.data.slice(0, questions.data.length).filter(i => i.description !== "");
+        // Copy array and filter it
+        let array = questions.data
+            .slice(0, questions.data.length)
+            .filter(i => i.description !== "" && !i.moduleCode.endsWith("R"))
+            .filter(i => i.faculty.includes(settings.category) || settings.category === "All");
 
         // Shuffle array
         const shuffled = array.sort(() => 0.5 - Math.random());
@@ -77,7 +82,7 @@ class Game extends Component {
         const questionSet = shuffled.slice(0, numberOfQuestions);
 
         //console.log(questionSet);
-        
+
         return questionSet;
     }
 
@@ -102,12 +107,16 @@ class Game extends Component {
     showGameOver() {
         return (
             <div className="white-background">
-                Game over<br />
-                Score: {this.state.score}<br />
-                Answers:<br />
-                {this.state.questionSet.map((i, index) => <p>{index + 1}. {i.moduleCode}</p>)}
+                <br/>
+                <h1>Game over</h1>
+                <h2>Score: {this.state.score}</h2>
+                <p>Answers: </p>
+                {this.state.questionSet ?
+                    this.state.questionSet.map((i, index) => <p>{index + 1}. {i.moduleCode} {i.title}<br />{i.description}</p>)
+                    : <p>You did not answer anything!</p>
+                }
                 <div className="play-btn">
-                    <Button component={Link} to="/game" variant="contained" color="secondary" size="large" fullWidth>
+                    <Button component={Link} to="/game" variant="contained" color="secondary" size="large" fullWidth onClick={() => this.playAgain()}>
                         Play Again
                     </Button>
                 </div>
@@ -117,7 +126,7 @@ class Game extends Component {
                     </Button>
                 </div>
             </div>
-        )
+        );
     }
 
     render() {
@@ -139,7 +148,7 @@ class Game extends Component {
 
         let arr = questionSet.slice(0, questionSet.length);
         const shuffled = arr.sort(() => 0.5 - Math.random());
-        //for (let i = 0; i < 3; i++) {
+
         let i = -1;
         while (answers.length < 4) {
             i++;
@@ -160,47 +169,54 @@ class Game extends Component {
 
         return (
             <div className="white-background">
-                <div className="question-container">
-                    <Grid
-                        container
-                        direction="row">
-                        <Grid item xs={12} className="question">
-                            <p>{this.state.question + 1} / {questionSet.length}</p>
-                            <CountdownCircleTimer
-                                // isLinearGradient={true}
-                                size={80}
-                                isPlaying
-                                durationSeconds={this.props.settings.time * 60}
-                                colors={[
-                                    ['#00ff00', .33],
-                                    ['#F7B801', .33],
-                                    ['#ff0000']
-                                ]}
-                                renderTime={(remainingTime) => {
-                                    return (
-                                        <div>
-                                            {remainingTime}
-                                        </div>
-                                    )
-                                }}
-                                onComplete = {this.handleTimeout}
-                            />
-                        </Grid>
-                        <Grid item xs={12}>
-
-                            <p>{question.description}</p>
-                        </Grid>
-                        <Grid item xs={6}>
-                            <Button variant="contained" fullWidth value={answers[0].moduleCode} onClick={e => this.handleClick(e, questionSet, question.moduleCode)}>A) {answers[0].moduleCode} {answers[0].title}</Button>
+            <div className="question-container">
+                <Grid
+                    container
+                    direction="row">
+                    <Grid item xs={12} className="question">
+                        <p>{this.state.question + 1} / {questionSet.length}</p>
+                        <CountdownCircleTimer
+                            // isLinearGradient={true}
+                            size={80}
+                            isPlaying
+                            durationSeconds={this.props.settings.time}
+                            colors={[
+                                ['#00ff00', .33],
+                                ['#F7B801', .33],
+                                ['#ff0000']
+                            ]}
+                            renderTime={(remainingTime) => {
+                                return (
+                                    <div>
+                                        {remainingTime}
+                                    </div>
+                                )
+                            }}
+                            onComplete={this.handleTimeout}
+                        />
+                    </Grid>
+                    <Grid item xs={12}>
+                            <p className="question-text">{question.description}</p>
                         </Grid>
                         <Grid item xs={6}>
-                            <Button variant="contained" fullWidth value={answers[1].moduleCode} onClick={e => this.handleClick(e, questionSet, question.moduleCode)}>B) {answers[1].moduleCode} {answers[1].title}</Button>
+                            <div className="make-it-smaller">
+                                <Button size="large" variant="contained" color="primary" fullWidth value={answers[0].moduleCode} onClick={e => this.handleClick(e, questionSet, question.moduleCode)}>A) {answers[0].moduleCode} {answers[0].title}</Button>
+                            </div>
                         </Grid>
                         <Grid item xs={6}>
-                            <Button variant="contained" fullWidth value={answers[2].moduleCode} onClick={e => this.handleClick(e, questionSet, question.moduleCode)}>C) {answers[2].moduleCode} {answers[2].title}</Button>
+                            <div className="make-it-smaller">
+                            <Button size="large" variant="contained" color="secondary" fullWidth value={answers[1].moduleCode} onClick={e => this.handleClick(e, questionSet, question.moduleCode)}>B) {answers[1].moduleCode} {answers[1].title}</Button>
+                            </div>
                         </Grid>
                         <Grid item xs={6}>
-                            <Button variant="contained" fullWidth value={answers[3].moduleCode} onClick={e => this.handleClick(e, questionSet, question.moduleCode)}>D) {answers[3].moduleCode} {answers[3].title}</Button>
+                            <div className="make-it-smaller">
+                            <Button size="large" variant="contained" color="secondary" fullWidth value={answers[2].moduleCode} onClick={e => this.handleClick(e, questionSet, question.moduleCode)}>C) {answers[2].moduleCode} {answers[2].title}</Button>
+                            </div>
+                        </Grid>
+                        <Grid item xs={6}>
+                            <div className="make-it-smaller">
+                            <Button size="large" variant="contained" color="primary" fullWidth value={answers[3].moduleCode} onClick={e => this.handleClick(e, questionSet, question.moduleCode)}>D) {answers[3].moduleCode} {answers[3].title}</Button>
+                            </div>
                         </Grid>
 
                     </Grid>

@@ -86,6 +86,7 @@
 }
 
 .question-container {
+
   margin-right: 10%;
   margin-left: 10%;
 }
@@ -97,9 +98,16 @@
 
 .question {
   padding-top: 5%;
-  padding-bottom: 5%;
+}
+
+.question-text {
+    font-size: 18px;
 }
 
 .answer-button {
   min-width: 50%;
+}
+
+.make-it-smaller {
+    padding: 10px 20px 10px 20px;
 }
