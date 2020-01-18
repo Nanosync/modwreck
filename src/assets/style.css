@@ -56,7 +56,7 @@
   text-align: center;
 }
 
-.playBtn {
+.playbtn {
   position: absolute;
   font-size: 1.4em;
   padding: 10px;
@@ -72,14 +72,14 @@
 }
 
 .spinner-container {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  z-index: 0;
+  position: relative;
+
+}
+
+.game-title {
+  z-index: 1;
+  position: relative;
 }
 
 .setting-btn {

@@ -9,7 +9,6 @@ class Timer extends React.Component {
     */
     constructor(props) {
         super(props);
-        console.log("props", props)
         // || to show default values incase it is empty
         this.state = {
             minutes: 3,
@@ -22,9 +21,9 @@ class Timer extends React.Component {
 
     }
 
-    startTimer() {
+    startTimer = () => {
         this.myInterval = setInterval(() => {
-            const {seconds, minutes} = this.state
+            const { seconds, minutes } = this.state
 
             if (seconds > 0) {
                 this.setState({
@@ -42,7 +41,7 @@ class Timer extends React.Component {
                         seconds: 59
                     })
                 }
-            } 
+            }
         }, 1000)
 
     }
@@ -68,8 +67,8 @@ class Timer extends React.Component {
         if (this.props.onTimeout) {
             newState.onTimeout = this.props.onTimeout
         }
-            
-        this.setState(newState)
+
+        this.setState(newState, () => this.startTimer())
     }
 
     componentWillUnmount() {
@@ -78,10 +77,9 @@ class Timer extends React.Component {
 
     render() {
         const { minutes, seconds } = this.state
-        console.log("state", this.state)
         return (
             <div className='timer'>
-                { minutes === 0 && seconds === 0 ? <h1>Busted!</h1>
+                {minutes === 0 && seconds === 0 ? <h1>Busted!</h1>
                     : <h1>Time Remaining: {minutes}:{seconds < 10 ? `0${seconds}` : seconds}</h1>
                 }
             </div>

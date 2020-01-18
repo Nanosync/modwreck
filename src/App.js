@@ -3,7 +3,7 @@ import WelcomePage from './components/Welcome';
 import SettingsPage from './components/Settings';
 import GamePage from './components/Game';
 import './assets/App.css'
-import {SwappingSquaresSpinner} from "react-epic-spinners";
+import {ScalingSquaresSpinner} from "react-epic-spinners";
 
 
 import {
@@ -18,7 +18,12 @@ function App() {
     return (
         <div className="App">
             <div className="App-header">
-                <h1>ModWreck</h1>
+                <h1 className="game-title">ModWreck</h1>
+                <div className="spinner-container">
+                    <ScalingSquaresSpinner color="red" size="100" className="spinner"/>
+                </div>
+            </div>
+            <div className="">
                 <Router>
                     <div>
                         <Switch>
