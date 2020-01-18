@@ -27,7 +27,7 @@ function App() {
                     <ScalingSquaresSpinner color="#e1e1e1" size="150" className="spinner"/>
                 </div>
             </div>
-            <div className="">
+            <div>
                 <Router>
                     <div>
                         <TransitionGroup>
@@ -42,7 +42,7 @@ function App() {
                     </div>
                 </Router>
             </div>
-            <ParticlesBg color="grey" type="square" bg={true} />
+            <ParticlesBg type="circle" bg={true} />
         </div>
     );
 }

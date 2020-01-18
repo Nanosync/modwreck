@@ -90,6 +90,11 @@
   margin-left: 10%;
 }
 
+.white-background {
+    background-color: white;
+    height: 70vh;
+}
+
 .question {
   padding-top: 5%;
   padding-bottom: 5%;
