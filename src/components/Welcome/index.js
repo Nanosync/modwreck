@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import {Link} from 'react-router-dom';
 import Button from '@material-ui/core/Button';
+import {SwappingSquaresSpinner} from 'react-epic-spinners';
+
 
 class Welcome extends Component {
     constructor(props) {
@@ -9,14 +11,17 @@ class Welcome extends Component {
     
     render() {
         return (
-            <div>
+            <div className="spinner-container">
                 <div>
+                    <SwappingSquaresSpinner color="skyblue" size="200" className="spinner" animationDuration="2500"/>
+                </div>
+                <div className="setting-btn">
                     <Button component={ Link } to="/settings" variant="contained" color="primary">
                         Setting
                     </Button>
                 </div>
-                <div>
-                    <Button component={ Link } to="/game" variant="contained" color="primary">
+                <div className="play-btn">
+                    <Button component={ Link } to="/game" variant="contained" color="secondary">
                         Play
                     </Button>
                 </div>
