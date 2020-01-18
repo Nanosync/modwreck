@@ -63,7 +63,7 @@ class Game extends Component {
         var {isLoaded, modules} = this.state;
 
         if (!isLoaded) {
-            return <div> Loading... </div>;
+            return <h1> Loading... </h1>;
         } else {
 
             var optionsBank = [];
@@ -87,7 +87,7 @@ class Game extends Component {
                                                 <h1>QuizBee</h1>
                                             </th> */}
                                             <th className="textCenter" >
-                                                <Timer minutes={0} seconds={10} onTimeout={this.handleTimeout}/>
+                                                <Timer minutes={3} seconds={0} onTimeout={this.handleTimeout}/>
                                             </th>
                                         </tr>
                                     </table>
