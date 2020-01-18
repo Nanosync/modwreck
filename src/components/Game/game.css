@@ -29,8 +29,13 @@
     width: 100%;
     table-layout: fixed;
 }
+
 .tableTitle .table .textLeft {
     text-align: left;
+}
+
+.tableTitle .table .textCenter {
+    text-align: center;
 }
 .tableTitle .table .textRight {
     text-align: right;
@@ -38,7 +43,6 @@
 
 .timer {
     height: 100%;
-    text-align: right;
 }
 
 .score-board {

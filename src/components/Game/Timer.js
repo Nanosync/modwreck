@@ -11,8 +11,8 @@ class Timer extends React.Component {
         super(props);
         // || to show default values incase it is empty
         this.state = {
-            minutes: this.props.minutes || 0,
-            seconds: this.props.seconds || 5,
+            minutes: this.props.minutes || this.props.minutes == 0 ? 0 : 3,
+            seconds: this.props.seconds || 0,
             onTimeout: this.props.onTimeout || this.nullOnTimeout,
         }
     }
