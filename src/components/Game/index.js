@@ -81,6 +81,8 @@ class Game extends Component {
 
             optionsBank = optionsBank.sort(() => Math.random() - 0.5);
 
+            console.log(this.props.settings);
+
             return (
                 <div className="quizContainer">
                     {this.state.questionBank.length > 0
@@ -95,7 +97,7 @@ class Game extends Component {
                                                 <h1>QuizBee</h1>
                                             </th> */}
                                         <th className="textCenter">
-                                            <Timer minutes={3} seconds={0} onTimeout={this.handleTimeout} />
+                                            <Timer minutes={this.props.settings.time} seconds={0} onTimeout={this.handleTimeout} />
                                         </th>
                                     </tr>
                                 </table>
