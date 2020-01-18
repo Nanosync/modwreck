@@ -8,14 +8,15 @@ class Game extends Component {
     constructor(props) {
         super(props);
     }
+
     state = {
         questionBank: [],
         score: 0,
         responses: 0, //no. of questions answered
         isLoaded: false,
-		showResult: false,
+        showResult: false,
     };
-	
+
     computeAnswer = (answer, correctAnswer) => {
         if (answer === correctAnswer) {
             this.setState({
@@ -26,7 +27,7 @@ class Game extends Component {
             responses: this.state.responses < 5 ? this.state.responses + 1 : 5
         });
     };
-	
+
     playAgain = () => {
         this.getQuestions();
         //condition fails during render
@@ -34,7 +35,7 @@ class Game extends Component {
             score: 0,
             responses: 0,
             showResult: false,
-            
+
         });
     };
     getQuestions = () => {
@@ -52,8 +53,8 @@ class Game extends Component {
     componentDidMount() {
         this.getQuestions();
     }
-	
-	handleTimeout = () => {
+
+    handleTimeout = () => {
         this.setState({
             showResult: true
         })
@@ -71,42 +72,45 @@ class Game extends Component {
             this.state.questionBank.map(
                 (module) => (
                     optionsBank.push((module.moduleCode.toString() + " " + module.title.toString()))
-                ))
+        ))
+
+            optionsBank = optionsBank.sort(() => Math.random() - 0.5);
 
             return (
                 <div className="quizContainer">
+                    {console.log(this.state.questionBank)}
                     {this.state.questionBank.length > 0
-					&& !this.state.showResult
+                    && !this.state.showResult
                     && this.state.responses < 5
                         ?
-                            <div>
-                                <div className="tableTitle">
-                                    <table className="table">
-                                        <tr>
-                                            {/* <th className="textLeft">
+                        <div>
+                            <div className="tableTitle">
+                                <table className="table">
+                                    <tr>
+                                        {/* <th className="textLeft">
                                                 <h1>QuizBee</h1>
                                             </th> */}
-                                            <th className="textCenter" >
-                                                <Timer minutes={0} seconds={10} onTimeout={this.handleTimeout}/>
-                                            </th>
-                                        </tr>
-                                    </table>
-                                </div>
-                        
-                                {this.state.questionBank.map(
-                                    (module) => (
-                                        <QuestionBox
-                                            question={module.description}
-                                            options={optionsBank}
-                                            selected={answer => this.computeAnswer(answer, module.moduleCode.toString() + " " + module.title.toString())}
-                                        />
-                                    )
-                                )}
+                                        <th className="textCenter">
+                                            <Timer minutes={0} seconds={10} onTimeout={this.handleTimeout}/>
+                                        </th>
+                                    </tr>
+                                </table>
                             </div>
+
+                            {this.state.questionBank.map(
+                                (module) => (
+                                    <QuestionBox
+                                        question={module.description}
+                                        options={optionsBank}
+                                        selected={answer => this.computeAnswer(answer, module.moduleCode.toString() + " " + module.title.toString())}
+                                    />
+                                )
+                            )}
+                        </div>
                         : null
                     }
 
-					{this.state.responses === 5 || this.state.showResult ? (
+                    {this.state.responses === 5 || this.state.showResult ? (
                         <Result score={this.state.score} playAgain={this.playAgain}/>
                     ) : null}
                 </div>
