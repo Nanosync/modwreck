@@ -106,7 +106,7 @@ class Game extends Component {
                             {this.state.questionBank.map(
                                 (module) => (
                                     <QuestionBox
-                                        question={module.description}
+                                        question={module.description.split('. ')[0]}
                                         options={optionsBank}
                                         selected={answer => this.computeAnswer(answer, module.moduleCode.toString() + " " + module.title.toString())}
                                     />
