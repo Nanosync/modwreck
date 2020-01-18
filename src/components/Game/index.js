@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import QuestionBox from "./QuestionBox";
 import Result from "./Result";
+import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 import Timer from './Timer'
+
 import './game.css'
 
 class Game extends Component {
@@ -83,17 +85,25 @@ class Game extends Component {
                         && this.state.responses < 5
                         ?
                         <div>
-                            <div className="tableTitle">
-                                <table className="table">
-                                    <tr>
-                                        {/* <th className="textLeft">
-                                                <h1>QuizBee</h1>
-                                            </th> */}
-                                        <th className="textCenter">
-                                            <Timer minutes={3} seconds={0} onTimeout={this.handleTimeout} />
-                                        </th>
-                                    </tr>
-                                </table>
+                            <div className="QuizHeader">
+                                <CountdownCircleTimer
+                                    // isLinearGradient={true}
+                                    isPlaying
+                                    durationSeconds={10}
+                                    colors={[
+                                        ['#004700', .33],
+                                        ['#F7B801', .33],
+                                        ['#A30000']
+                                    ]}
+                                    renderTime={(remainingTime) => {
+                                        return (
+                                            <div>
+                                                <h1>{remainingTime}</h1>
+                                            </div>
+                                        )
+                                    }}
+                                    onComplete = {this.handleTimeout}
+                                />
                             </div>
 
                             {this.state.questionBank.map(
