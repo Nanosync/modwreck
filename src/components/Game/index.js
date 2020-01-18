@@ -10,7 +10,8 @@ class App extends Component {
         questionBank: [],
         score: 0,
         responses: 0, //no. of questions answered
-        text: "helo"
+        showResult: false,
+
     };
     getQuestions = () => {
         quizService().then(question => {
@@ -37,13 +38,14 @@ class App extends Component {
             responses: 0
         });
     };
+
     componentDidMount() {
         this.getQuestions();
     }
 
-    handleClickTemp = () => {
+    handleTimeout = () => {
         this.setState({
-            text: "byebye"
+            showResult: true
         })
     }
     render() {
@@ -56,12 +58,13 @@ class App extends Component {
                                 <h1>QuizBee</h1>
                             </th>
                             <th className="textRight">
-                                {<Timer />}
+                                {!this.state.showResult ? <Timer minutes={0} seconds={10} onTimeout={this.handleTimeout}/>: null}
                             </th>
                         </tr>
                     </table>
                 </div>
                 {this.state.questionBank.length > 0
+                && !this.state.showResult
                 && this.state.responses < 5
                 && this.state.questionBank.map(
                     ({ question, answers, correct, questionId }) => (
@@ -74,7 +77,7 @@ class App extends Component {
                     )
                 )}
 
-                {this.state.responses === 5 ? (
+                {this.state.responses === 5 || this.state.showResult ? (
                     <Result score={this.state.score} playAgain={this.playAgain} />
                 ) : null}
 
