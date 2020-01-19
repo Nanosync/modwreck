@@ -4,6 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import QuestionBox from "./QuestionBox";
 import Result from "./Result";
 import Timer from './Timer';
+import GameOver from './GameOver'
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 import './game.css';
 import { connect } from 'react-redux';
@@ -24,7 +25,7 @@ const styles = {
 class Game extends Component {
     constructor(props) {
         super(props);
-        console.log("current", new Date().getTime()/1000)
+        console.log("current", new Date().getTime() / 1000)
         this.state = {
             score: 0,
             responses: 0,
@@ -124,7 +125,7 @@ class Game extends Component {
         if (this.state.question === this.props.numberOfQuestions - 1) {
             this.setState({
                 showResult: true,
-                endTime: new Date().getTime()/1000
+                endTime: new Date().getTime() / 1000
             });
             return;
         }
@@ -134,10 +135,7 @@ class Game extends Component {
             question: prevState.question + 1
         }));
     }
-
-    showGameOver() {
-        console.log(this.state.startTime)
-        console.log(this.state.endTime)
+    showGameOver(classes) {
         return (
         <div className="white-background">
             <br />
@@ -146,10 +144,9 @@ class Game extends Component {
             <h2>Time: {new Date().getTime()/1000 - this.state.startTime}</h2>
             <p>Answers: </p>
             {this.state.questionSet ?
-                this.state.questionSet.map((i, index) => <ExpansionPanel color="success.main"><ThemeProvider theme={greenBackGround}>
+                this.state.questionSet.map((i, index) => <ExpansionPanel className={classes.root}>
                     <ExpansionPanelSummary><div>{index + 1}. {i.moduleCode} {i.title}</div></ExpansionPanelSummary>
                     <ExpansionPanelDetails><div><p className="text-left">{i.description}</p></div></ExpansionPanelDetails>
-                </ThemeProvider>
                 </ExpansionPanel>)
                 : <p>You did not answer anything!</p>
             }
@@ -175,7 +172,11 @@ class Game extends Component {
         }
 
         if (this.state.question >= this.props.settings.numberOfQuestions || this.state.showResult) {
-            return this.showGameOver();
+            return <GameOver 
+                score={this.state.score} 
+                timeTaken={new Date().getTime() / 1000 - this.state.startTime} 
+                questionSet={this.state.questionSet} 
+                playAgain={this.playAgain} />
         }
 
         const questionSet = this.state.questionSet === null ? this.getQuestionSet() : this.state.questionSet;
