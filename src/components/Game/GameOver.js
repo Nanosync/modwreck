@@ -6,6 +6,7 @@ import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import { withStyles } from '@material-ui/core/styles';
+import { Input } from '@material-ui/core';
 
 const styles = {
     greenBackGround: {
@@ -69,10 +70,14 @@ class GameOver extends React.Component {
                 <h2>Time: {this.props.timeTaken.toFixed(2)} seconds</h2>
                 <h2>Final Score: {(this.props.score * 100 / this.props.timeTaken).toFixed(2)}</h2>
                 <form onSubmit={this.handleSubmit} >
-                    <input type="text" onChange={this.handleChange} name="nameInput" value={this.state.nameInput} placeholder="Name" autoComplete="off" disabled={this.state.disableButtton}/>
-                    <input type="submit" disabled={this.state.disableButtton}/>
+                    <div className="textboxBottomMargin">
+                        <Input type="text" onChange={this.handleChange} name="nameInput" value={this.state.nameInput} placeholder="Name" autoComplete="off" disabled={this.state.disableButtton}/>
+                    </div>
+                    <div className="formMarginbottom">
+                        <Button type="submit" variant="contained" disabled={this.state.disableButtton}>SUBMIT</Button>
+                    </div>
                 </form>
-                <p>Answers: </p>
+                <p><strong>Answers: </strong></p>
 {/*<<<<<<< HEAD*/}
                 {/*{this.props.questionSet ?*/}
                     {/*this.props.questionSet.map((i, index) => <ExpansionPanel className={classes.redBackGround}>*/}

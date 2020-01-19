@@ -82,8 +82,9 @@
   z-index: 1;
   position: relative;
   font-size: 32px;
-  color: darkblue;
+  color: skyblue;
   font-weight: bolder;
+  text-shadow: 2px 2px darkred;
 
 }
 
@@ -135,6 +136,15 @@
     margin-bottom: 10%;
 }
 
+.textboxBottomMargin {
+    margin-bottom: 2%;
+}
+
 .text-center {
   text-align: center;
+}
+
+.loading-design {
+  font-size: 36px;
+  font-weight: bolder;
 }
