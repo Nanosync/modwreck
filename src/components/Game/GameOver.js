@@ -17,7 +17,7 @@ const styles = {
         background: 'linear-gradient(45deg, white 30%, #ed2939 90%)'
     },
     scoreBackGround: {
-        background:  'linear-gradient(45deg, #90ee90 30%, #ed2939 90%)',
+        background: 'linear-gradient(45deg, #90ee90 30%, #ed2939 90%)',
         borderRadius: '20px'
     }
 };
@@ -54,29 +54,40 @@ class GameOver extends React.Component {
 
         console.log(answers);
 
-        return (questionSet.map((i, index) => (answers[index].moduleCode === i.moduleCode ? (<ExpansionPanel>
-            <ExpansionPanelSummary className={classes.greenBackGround}><strong>(Correct)</strong>&nbsp;{index + 1}. {answers[index].moduleCode} {answers[index].title}</ExpansionPanelSummary>
-            <ExpansionPanelDetails>
-                <p className="text-left">
-                    <strong>You answered this question correctly.</strong>
-                    <br /><br />
-                    {i.description}
-                </p>
-            </ExpansionPanelDetails>
-        </ExpansionPanel>) : (<ExpansionPanel>
-            <ExpansionPanelSummary className={classes.redBackGround}>
-                <strong>(Wrong)</strong>&nbsp;{index + 1}. {answers[index].moduleCode} {answers[index].title}
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
-                <p className="text-left">
-                    <strong>You answered this question incorrectly.</strong>
-                    <br /><br />
-                    The correct answer was: <strong>{i.moduleCode} {i.title}.</strong>
-                    <br /><br />
-                    {i.description}</p>
-            </ExpansionPanelDetails>
-        </ExpansionPanel>)
-        )));
+        return (questionSet.map((i, index) => {
+            let answerMod = "";
+            let invalidAnswer = false;
+            if (index >= answers.length) {
+                invalidAnswer = true;
+            } else {
+                answerMod = answers[index].moduleCode;
+            }
+            
+            return answerMod === i.moduleCode ? (<ExpansionPanel>
+                <ExpansionPanelSummary className={classes.greenBackGround}><strong>(Correct)</strong>&nbsp;{index + 1}. {answers[index].moduleCode} {answers[index].title}</ExpansionPanelSummary>
+                <ExpansionPanelDetails>
+                    <p className="text-left">
+                        <strong>You answered this question correctly.</strong>
+                        <br /><br />
+                        {i.description}
+                    </p>
+                </ExpansionPanelDetails>
+            </ExpansionPanel>) : (<ExpansionPanel>
+                <ExpansionPanelSummary className={classes.redBackGround}>
+                    <strong>(Wrong)</strong>&nbsp;{index + 1}. {invalidAnswer ? "Did not answer" : (answers[index].moduleCode + " " + answers[index].title)}
+                </ExpansionPanelSummary>
+                <ExpansionPanelDetails>
+                    <p className="text-left">
+                        <strong>You answered this question incorrectly.</strong>
+                        <br /><br />
+                        The correct answer was: <strong>{i.moduleCode} {i.title}.</strong>
+                        <br /><br />
+                        {i.description}</p>
+                </ExpansionPanelDetails>
+            </ExpansionPanel>);
+        }
+        )
+        );
     }
 
     render() {
