@@ -30,6 +30,7 @@ class Game extends Component {
             score: 0,
             responses: 0,
             showResult: false,
+            exitGame: false,
             questionSet: null,
             question: 0,
             feedback: "Answer as fast as you can!",
@@ -69,6 +70,23 @@ class Game extends Component {
             score: 0,
             responses: 0,
             showResult: false,
+            questionSet: null,
+            question: 0,
+            feedback: "Answer as fast as you can!",
+            answers: [],
+            startTime: new Date().getTime() / 1000
+        });
+    };
+
+
+    exitGame = () => {
+        //condition fails during render
+        window.scrollTo(0, 0);
+        this.setState({
+            score: 0,
+            responses: 0,
+            showResult: false,
+            exitGame:true,
             questionSet: null,
             question: 0,
             feedback: "Answer as fast as you can!",
@@ -172,7 +190,7 @@ class Game extends Component {
             return <div className="loading-design">Loading...</div>;
         }
 
-        if (this.state.question >= this.props.settings.numberOfQuestions || this.state.showResult) {
+        if (this.state.question >= this.props.settings.numberOfQuestions || this.state.showResult || this.state.exitGame) {
             return <GameOver 
                 score={this.state.score} 
                 timeTaken={new Date().getTime() / 1000 - this.state.startTime} 
@@ -268,8 +286,12 @@ class Game extends Component {
                                 <Button size="large" variant="contained" color="primary" fullWidth value={answers[3].moduleCode} onClick={e => this.handleClick(e, questionSet, question.moduleCode)}>D) {answers[3].moduleCode} {answers[3].title}</Button>
                             </div>
                         </Grid>
-
                     </Grid>
+                    <div className="play-btn">
+                        <Button component={Link} to="/" variant="contained" color="secondary" size="large" fullWidth onClick={() => this.exitGame()}>
+                            Exit Game
+                        </Button>
+                    </div>
                 </div>
             </div>
 
