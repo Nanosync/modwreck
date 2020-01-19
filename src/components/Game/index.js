@@ -51,7 +51,7 @@ class Game extends Component {
             }));
         } else {
             this.setState({
-                feedback: "Try harder...",
+                feedback: "That wasn't correct...",
             });
         }
         this.setState((prevState, props) => ({
@@ -213,6 +213,13 @@ class Game extends Component {
         answers.sort(() => 0.5 - Math.random());
         console.log(answers);
 
+        let feedbackClasses = "feedback-text";
+        if (this.state.feedback === "Fantastic!") {
+            feedbackClasses += " positive-shadow";
+        } else if (this.state.feedback === "That wasn't correct...") {
+            feedbackClasses += " negative-shadow";
+        }
+
         return (
             <div className="white-background">
                 <div className="question-container">
@@ -221,7 +228,7 @@ class Game extends Component {
                         direction="row">
                             <Grid item xs={3} className="question"></Grid>
                             <Grid item xs={6} className="question">
-                                <p className="feedback-text">{this.state.feedback}</p>
+                                <p className={feedbackClasses}>{this.state.feedback}</p>
                                 <hr />
                                 <p className="question-text">{question.description.substring(0, question.description.indexOf('.') + 1)}</p>
 
