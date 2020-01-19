@@ -140,6 +140,8 @@
   background-color: #ccccff;
   line-height: 2;
   box-shadow: 10px 0 0px 0px #EDC330, -10px 0 0px 0px #EDC330;
+  border-bottom-left-radius: 100px;
+  border-bottom-right-radius: 100px;
 }
 
 .space-top {

@@ -6,6 +6,7 @@ import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import { withStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
 import './game.css';
 
 const styles = {
@@ -14,6 +15,10 @@ const styles = {
     },
     redBackGround: {
         background: 'linear-gradient(45deg, white 30%, #ed2939 90%)'
+    },
+    scoreBackGround: {
+        background:  'linear-gradient(45deg, #90ee90 30%, #ed2939 90%)',
+        borderRadius: '20px'
     }
 };
 
@@ -83,11 +88,11 @@ class GameOver extends React.Component {
                     <h1 className="feedback-text game-over-text">Game Over!</h1>
 
                     <div className="score-panel-container">
-                        <div className="score-panel">
-                            <h2>Score: {this.props.score}</h2>
-                            <h2>Time: {this.props.timeTaken.toFixed(2)} seconds</h2>
+                        <Card className={classes.scoreBackGround}>
+                            <h2>Correct Answers: {this.props.score}</h2>
+                            <h2>Time Taken: {this.props.timeTaken.toFixed(2)} seconds</h2>
                             <h2>Final Score: {(this.props.score * 100 / this.props.timeTaken).toFixed(2)}</h2>
-                        </div>
+                        </Card>
                     </div>
                     {/*<form onSubmit={this.handleSubmit} >
                         <input type="text" onChange={this.handleChange} name="nameInput" value={this.state.nameInput} placeholder="Name" autoComplete="off" disabled={this.state.disableButtton} />
