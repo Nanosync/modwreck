@@ -30,12 +30,28 @@ class GameOver extends React.Component {
         // do some thing online
     }
 
+    renderQuestion(questionSet, answers) {
+        if (questionSet === null) {
+            return <p>You did not answer any questions.</p>;
+        }
+
+        console.log(answers);
+
+        return (questionSet.map((i, index) => (
+            <ExpansionPanel>
+                <ExpansionPanelSummary>({answers[index] ? <strong>Correct</strong> : <strong>Wrong</strong>}) {index + 1}. {i.moduleCode} {i.title}</ExpansionPanelSummary>
+                <ExpansionPanelDetails><p className="text-left">{i.description}</p></ExpansionPanelDetails>
+            </ExpansionPanel>
+        )));
+    }
+
     render() {
         return (
             <div className="white-background">
                 <br />
                 <h1>Game over</h1>
                 <h2>Score: {this.props.score}</h2>
+                <h2>Time: {this.props.timeTaken.toFixed(2)} seconds</h2>
                 <h2>Time: {this.props.timeTaken}</h2>
                 <h2>Final Score: {this.props.score * 100 / this.props.timeTaken}</h2>
                 <form onSubmit={this.handleSubmit} >
@@ -43,13 +59,7 @@ class GameOver extends React.Component {
                     <input type="submit" disabled={this.state.disableButtton}/>
                 </form>
                 <p>Answers: </p>
-                {this.props.questionSet ?
-                    this.props.questionSet.map((i, index) => <ExpansionPanel>
-                        <ExpansionPanelSummary>{index + 1}. {i.moduleCode} {i.title}</ExpansionPanelSummary>
-                        <ExpansionPanelDetails><p className="text-left">{i.description}</p></ExpansionPanelDetails>
-                    </ExpansionPanel>)
-                    : <p>You did not answer anything!</p>
-                }
+                {this.renderQuestion(this.props.questionSet, this.props.answers)}
                 <div className="play-btn">
                     <Button component={Link} to="/game" variant="contained" color="secondary" size="large" fullWidth onClick={() => this.props.playAgain()}>
                         Play Again
@@ -65,4 +75,4 @@ class GameOver extends React.Component {
     }
 }
 
-export default GameOver
+export default GameOver;
