@@ -124,3 +124,7 @@
   opacity: 1;
   transition: opacity 250ms ease-in;
 }
+
+.text-center {
+  text-align: center;
+}

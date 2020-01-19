@@ -179,9 +179,14 @@ class Game extends Component {
                     <Grid
                         container
                         direction="row">
-                        <Grid item xs={12} className="question">
-                            <p>{this.state.feedback}</p>
-                            <p>{this.state.question} / {questionSet.length} answered</p>
+                            <Grid item xs={3} className="question"></Grid>
+                            <Grid item xs={6} className="question">
+                                <p className="text-center">{this.state.feedback}</p>
+                                <hr />
+                                <p className="question-text">{question.description.substring(0, question.description.indexOf('.') + 1)}</p>
+
+                            </Grid>
+                            <Grid item xs={3} className="question">
                             <CountdownCircleTimer
                                 // isLinearGradient={true}
                                 size={80}
@@ -201,9 +206,9 @@ class Game extends Component {
                                 }}
                                 onComplete={this.handleTimeout}
                             />
-                        </Grid>
+                            <p>{this.state.question} / {questionSet.length} answered</p>
+                            </Grid>
                         <Grid item xs={12}>
-                            <p className="question-text">{question.description.substring(0, question.description.indexOf('.') + 1)}</p>
                         </Grid>
                         <Grid item xs={6}>
                             <div className="make-it-smaller">
