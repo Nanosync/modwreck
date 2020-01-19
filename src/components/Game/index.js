@@ -4,6 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import QuestionBox from "./QuestionBox";
 import Result from "./Result";
 import Timer from './Timer';
+import GameOver from './GameOver'
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 import './game.css';
 import { connect } from 'react-redux';
@@ -16,7 +17,7 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 class Game extends Component {
     constructor(props) {
         super(props);
-        console.log("current", new Date().getTime()/1000)
+        console.log("current", new Date().getTime() / 1000)
         this.state = {
             score: 0,
             responses: 0,
@@ -116,7 +117,7 @@ class Game extends Component {
         if (this.state.question === this.props.numberOfQuestions - 1) {
             this.setState({
                 showResult: true,
-                endTime: new Date().getTime()/1000
+                endTime: new Date().getTime() / 1000
             });
             return;
         }
@@ -127,37 +128,6 @@ class Game extends Component {
         }));
     }
 
-    showGameOver() {
-        console.log(this.state.startTime)
-        console.log(this.state.endTime)
-        return (
-        <div className="white-background">
-            <br />
-            <h1>Game over</h1>
-            <h2>Score: {this.state.score}</h2>
-            <h2>Time: {new Date().getTime()/1000 - this.state.startTime}</h2>
-            <p>Answers: </p>
-            {this.state.questionSet ?
-                this.state.questionSet.map((i, index) => <ExpansionPanel>
-                    <ExpansionPanelSummary>{index + 1}. {i.moduleCode} {i.title}</ExpansionPanelSummary>
-                    <ExpansionPanelDetails><p className="text-left">{i.description}</p></ExpansionPanelDetails>
-                </ExpansionPanel>)
-                : <p>You did not answer anything!</p>
-            }
-            <div className="play-btn">
-                <Button component={Link} to="/game" variant="contained" color="secondary" size="large" fullWidth onClick={() => this.playAgain()}>
-                    Play Again
-                    </Button>
-            </div>
-            <div className="setting-btn">
-                <Button component={Link} to="/" variant="contained" color="primary" size="large">
-                    Home
-                    </Button>
-            </div>
-        </div>
-        );
-    }
-
     render() {
         const { questions } = this.props;
 
@@ -166,7 +136,11 @@ class Game extends Component {
         }
 
         if (this.state.question >= this.props.settings.numberOfQuestions || this.state.showResult) {
-            return this.showGameOver();
+            return <GameOver 
+                score={this.state.score} 
+                timeTaken={new Date().getTime() / 1000 - this.state.startTime} 
+                questionSet={this.state.questionSet} 
+                playAgain={this.playAgain} />
         }
 
         const questionSet = this.state.questionSet === null ? this.getQuestionSet() : this.state.questionSet;
