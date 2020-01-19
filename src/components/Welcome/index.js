@@ -21,7 +21,7 @@ class Welcome extends Component {
                 </div>
                 <div className="setting-btn">
                     <Button component={ Link } to="/settings" variant="contained" color="primary" size="large">
-                        Setting
+                        Settings
                     </Button>
                 </div>
 

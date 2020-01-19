@@ -135,6 +135,12 @@
     margin-bottom: 10%;
 }
 
-.text-center {
-  text-align: center;
+.feedback-text {
+  background-color: #ccccff;
+  line-height: 2;
+  box-shadow: 10px 0 0px 0px #EDC330, -10px 0 0px 0px #EDC330;
+}
+
+.space-top {
+  margin-top: 5%;
 }

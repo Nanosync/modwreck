@@ -41,7 +41,7 @@ class Game extends Component {
 
     computeAnswer = (questions, answer, correctAnswer) => {
         let result = false;
-        if (answer === correctAnswer) {
+        if (answer.moduleCode === correctAnswer) {
             result = true;
             this.setState((prevState, props) => ({
                 score: prevState.score + 1,
@@ -55,7 +55,7 @@ class Game extends Component {
         this.setState((prevState, props) => ({
             questionSet: questions,
             responses: prevState.responses < this.props.numberOfQuestions ? prevState.responses + 1 : this.props.numberOfQuestions,
-            answers: [...prevState.answers, result]
+            answers: [...prevState.answers, answer]
         }));
 
         return result;
@@ -119,9 +119,9 @@ class Game extends Component {
 
     handleClick(e, questions, answer) {
         e.preventDefault();
-        const value = e.currentTarget.value;
+        const userInputValue = e.currentTarget.value;
 
-        let result = this.computeAnswer(questions, value, answer);
+        let result = this.computeAnswer(questions, questions.filter(item => item.moduleCode === userInputValue)[0], answer);
 
         if (this.state.question === this.props.numberOfQuestions - 1) {
             this.setState({
@@ -185,6 +185,8 @@ class Game extends Component {
         const questionSet = this.state.questionSet === null ? this.getQuestionSet() : this.state.questionSet;
         const question = questionSet[this.state.question];
 
+        console.log(question);
+
         const answers = [];
         answers.push(question);
 
@@ -217,7 +219,7 @@ class Game extends Component {
                         direction="row">
                             <Grid item xs={3} className="question"></Grid>
                             <Grid item xs={6} className="question">
-                                <p className="text-center">{this.state.feedback}</p>
+                                <p className="feedback-text">{this.state.feedback}</p>
                                 <hr />
                                 <p className="question-text">{question.description.substring(0, question.description.indexOf('.') + 1)}</p>
 
