@@ -52,8 +52,7 @@ class GameOver extends React.Component {
                 <h1>Game over</h1>
                 <h2>Score: {this.props.score}</h2>
                 <h2>Time: {this.props.timeTaken.toFixed(2)} seconds</h2>
-                <h2>Time: {this.props.timeTaken}</h2>
-                <h2>Final Score: {this.props.score * 100 / this.props.timeTaken}</h2>
+                <h2>Final Score: {this.props.score * 100 / this.props.timeTaken.toFixed(2)}</h2>
                 <form onSubmit={this.handleSubmit} >
                     <input type="text" onChange={this.handleChange} name="nameInput" value={this.state.nameInput} placeholder="Name" autoComplete="off" disabled={this.state.disableButtton}/>
                     <input type="submit" disabled={this.state.disableButtton}/>
