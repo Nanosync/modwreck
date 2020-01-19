@@ -1,8 +1,8 @@
 import { SET_QUESTION_COUNT, SET_TIME, SET_CATEGORY } from '../types';
 
 const DEFAULT_GAME_SETTINGS = {
-    numberOfQuestions: 5,
-    time: "3",
+    numberOfQuestions: 20,
+    time: "1",
     category: "All"
 };
 
