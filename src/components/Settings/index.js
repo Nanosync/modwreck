@@ -8,6 +8,7 @@ import Select from '@material-ui/core/Select';
 import Button from "@material-ui/core/Button/Button";
 import { connect } from 'react-redux';
 import { setNumberOfQuestions, setTime, setCategory } from '../../redux/actions';
+import Card from '@material-ui/core/Card';
 
 const styles = theme => ({
     formControl: {
@@ -26,7 +27,8 @@ class Settings extends Component {
 
         return (
             <div class="settingMargin">
-                <div>
+                <Card raised>
+                <div class="labelTopMargin">
                 <FormControl className={classes.formControl}>
                     <InputLabel id="questions"><span className="settingLabel"><b>Number of Questions</b></span></InputLabel>
                     <Select
@@ -98,9 +100,12 @@ class Settings extends Component {
                     </Select>
                 </FormControl>
                 </div>
-                <Button component={Link} to="/" variant="contained" color="primary">
-                    Save
-                </Button>
+                    <div className="labelBottomMargin">
+                        <Button component={Link} to="/" variant="contained" color="primary">
+                            Save
+                        </Button>
+                    </div>
+                </Card>
             </div>
 
         );

@@ -106,6 +106,8 @@
 
 .settingMargin {
   margin-top: 5%;
+    padding-left: 35%;
+    padding-right: 35%;
 }
 
 .formMarginbottom {
@@ -124,3 +126,12 @@
   opacity: 1;
   transition: opacity 250ms ease-in;
 }
+
+.labelTopMargin {
+    margin-top: 10%;
+}
+
+.labelBottomMargin {
+    margin-bottom: 10%;
+}
+

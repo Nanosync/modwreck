@@ -123,6 +123,7 @@
 .green-text {
     color: green;
     font-weight: bolder;
+    background-color: green;
 }
 
 .red-text {
