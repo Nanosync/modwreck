@@ -169,7 +169,7 @@ class Game extends Component {
         const { questions, classes } = this.props;
 
         if (questions.length === 0) {
-            return <div>Loading...</div>;
+            return <div className="loading-design">Loading...</div>;
         }
 
         if (this.state.question >= this.props.settings.numberOfQuestions || this.state.showResult) {
