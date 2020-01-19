@@ -6,6 +6,30 @@ import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 
 class GameOver extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            disableButtton: false,
+            nameInput: "",
+        }
+    }
+    handleChange = (e) => {
+        let nam = e.target.name;
+        let val = e.target.value;
+        this.setState({
+            [nam]: val
+        })
+    }
+    handleSubmit = (e) => {
+        e.preventDefault()
+        this.setState({
+            disableButtton: true
+        })
+        console.log("UPLOAD ME PLZ")
+        console.log(this.state.nameInput, this.props.score * 100 / this.props.timeTaken)
+        // do some thing online
+    }
+
     render() {
         return (
             <div className="white-background">
@@ -13,6 +37,11 @@ class GameOver extends React.Component {
                 <h1>Game over</h1>
                 <h2>Score: {this.props.score}</h2>
                 <h2>Time: {this.props.timeTaken}</h2>
+                <h2>Final Score: {this.props.score * 100 / this.props.timeTaken}</h2>
+                <form onSubmit={this.handleSubmit} >
+                    <input type="text" onChange={this.handleChange} name="nameInput" value={this.state.nameInput} placeholder="Name" autoComplete="off" disabled={this.state.disableButtton}/>
+                    <input type="submit" disabled={this.state.disableButtton}/>
+                </form>
                 <p>Answers: </p>
                 {this.props.questionSet ?
                     this.props.questionSet.map((i, index) => <ExpansionPanel>
