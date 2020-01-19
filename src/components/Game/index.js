@@ -42,19 +42,20 @@ class Game extends Component {
     computeAnswer = (questions, answer, correctAnswer) => {
         let result = false;
         if (answer === correctAnswer) {
+            result = true;
             this.setState((prevState, props) => ({
                 score: prevState.score + 1,
-                feedback: "Fantastic!"
+                feedback: "Fantastic!",
             }));
-            result = true;
         } else {
             this.setState({
-                feedback: "Try harder..."
+                feedback: "Try harder...",
             });
         }
         this.setState((prevState, props) => ({
             questionSet: questions,
-            responses: prevState.responses < this.props.numberOfQuestions ? prevState.responses + 1 : this.props.numberOfQuestions
+            responses: prevState.responses < this.props.numberOfQuestions ? prevState.responses + 1 : this.props.numberOfQuestions,
+            answers: [...prevState.answers, result]
         }));
 
         return result;
@@ -131,9 +132,9 @@ class Game extends Component {
         }
 
         this.setState((prevState, props) => ({
-            answers: [...prevState.answers, result],
             question: prevState.question + 1
         }));
+        console.log("Result was", result);
     }
     showGameOver(classes) {
         return (
@@ -176,7 +177,9 @@ class Game extends Component {
                 score={this.state.score} 
                 timeTaken={new Date().getTime() / 1000 - this.state.startTime} 
                 questionSet={this.state.questionSet} 
-                playAgain={this.playAgain} />
+                playAgain={this.playAgain}
+                answers={this.state.answers}
+                />
         }
 
         const questionSet = this.state.questionSet === null ? this.getQuestionSet() : this.state.questionSet;
