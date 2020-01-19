@@ -6,7 +6,7 @@ import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import { withStyles } from '@material-ui/core/styles';
-import { Input } from '@material-ui/core';
+import './game.css';
 
 const styles = {
     greenBackGround: {
@@ -23,22 +23,22 @@ class GameOver extends React.Component {
         this.state = {
             disableButtton: false,
             nameInput: "",
-        }
+        };
     }
     handleChange = (e) => {
         let nam = e.target.name;
         let val = e.target.value;
         this.setState({
             [nam]: val
-        })
+        });
     }
     handleSubmit = (e) => {
         e.preventDefault()
         this.setState({
             disableButtton: true
-        })
-        console.log("UPLOAD ME PLZ")
-        console.log(this.state.nameInput, this.props.score * 100 / this.props.timeTaken)
+        });
+        console.log("UPLOAD ME PLZ");
+        console.log(this.state.nameInput, this.props.score * 100 / this.props.timeTaken);
         // do some thing online
     }
 
@@ -49,13 +49,28 @@ class GameOver extends React.Component {
 
         console.log(answers);
 
-        return (questionSet.map((i, index) => (answers[index] ? (<ExpansionPanel>
-                    <ExpansionPanelSummary className={classes.greenBackGround}><strong>(Correct)</strong>&nbsp;{index + 1}. {i.moduleCode} {i.title}</ExpansionPanelSummary>
-                    <ExpansionPanelDetails><p className="text-left">{i.description}</p></ExpansionPanelDetails>
-                </ExpansionPanel>) : (<ExpansionPanel>
-                    <ExpansionPanelSummary className={classes.redBackGround}><strong>(Wrong)</strong>&nbsp;{index + 1}. {i.moduleCode} {i.title}</ExpansionPanelSummary>
-                    <ExpansionPanelDetails><p className="text-left">{i.description}</p></ExpansionPanelDetails>
-                </ExpansionPanel>)
+        return (questionSet.map((i, index) => (answers[index].moduleCode === i.moduleCode ? (<ExpansionPanel>
+            <ExpansionPanelSummary className={classes.greenBackGround}><strong>(Correct)</strong>&nbsp;{index + 1}. {answers[index].moduleCode} {answers[index].title}</ExpansionPanelSummary>
+            <ExpansionPanelDetails>
+                <p className="text-left">
+                    <strong>You answered this question correctly.</strong>
+                    <br /><br />
+                    {i.description}
+                </p>
+            </ExpansionPanelDetails>
+        </ExpansionPanel>) : (<ExpansionPanel>
+            <ExpansionPanelSummary className={classes.redBackGround}>
+                <strong>(Wrong)</strong>&nbsp;{index + 1}. {answers[index].moduleCode} {answers[index].title}
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails>
+                <p className="text-left">
+                    <strong>You answered this question incorrectly.</strong>
+                    <br /><br />
+                    The correct answer was: <strong>{i.moduleCode} {i.title}.</strong>
+                    <br /><br />
+                    {i.description}</p>
+            </ExpansionPanelDetails>
+        </ExpansionPanel>)
         )));
     }
 
@@ -63,41 +78,35 @@ class GameOver extends React.Component {
         const { classes } = this.props;
 
         return (
-            <div className="white-background">
-                <br />
-                <h1>Game over</h1>
-                <h2>Score: {this.props.score}</h2>
-                <h2>Time: {this.props.timeTaken.toFixed(2)} seconds</h2>
-                <h2>Final Score: {(this.props.score * 100 / this.props.timeTaken).toFixed(2)}</h2>
-                <form onSubmit={this.handleSubmit} >
-                    <div className="textboxBottomMargin">
-                        <Input type="text" onChange={this.handleChange} name="nameInput" value={this.state.nameInput} placeholder="Name" autoComplete="off" disabled={this.state.disableButtton}/>
-                    </div>
-                    <div className="formMarginbottom">
-                        <Button type="submit" variant="contained" disabled={this.state.disableButtton}>SUBMIT</Button>
-                    </div>
-                </form>
-                <p><strong>Answers: </strong></p>
-{/*<<<<<<< HEAD*/}
-                {/*{this.props.questionSet ?*/}
-                    {/*this.props.questionSet.map((i, index) => <ExpansionPanel className={classes.redBackGround}>*/}
-                        {/*<ExpansionPanelSummary>{index + 1}. {i.moduleCode} {i.title}</ExpansionPanelSummary>*/}
-                        {/*<ExpansionPanelDetails><p className="text-left">{i.description}</p></ExpansionPanelDetails>*/}
-                    {/*</ExpansionPanel>)*/}
-                    {/*: <p>You did not answer anything!</p>*/}
-                {/*}*/}
-{/*=======*/}
-                {this.renderQuestion(this.props.questionSet, this.props.answers, classes)}
+            <div className="white-background space-top">
+                <div className="question-container">
+                    <h1 className="feedback-text game-over-text">Game Over!</h1>
 
-                <div className="play-btn">
-                    <Button component={Link} to="/game" variant="contained" color="secondary" size="large" fullWidth onClick={() => this.props.playAgain()}>
-                        Play Again
-                    </Button>
-                </div>
-                <div className="setting-btn">
-                    <Button component={Link} to="/" variant="contained" color="primary" size="large">
-                        Home
-                    </Button>
+                    <div className="score-panel-container">
+                        <div className="score-panel">
+                            <h2>Score: {this.props.score}</h2>
+                            <h2>Time: {this.props.timeTaken.toFixed(2)} seconds</h2>
+                            <h2>Final Score: {(this.props.score * 100 / this.props.timeTaken).toFixed(2)}</h2>
+                        </div>
+                    </div>
+                    {/*<form onSubmit={this.handleSubmit} >
+                        <input type="text" onChange={this.handleChange} name="nameInput" value={this.state.nameInput} placeholder="Name" autoComplete="off" disabled={this.state.disableButtton} />
+                        <input type="submit" disabled={this.state.disableButtton} />
+                    </form>*/}
+                    <h3>Your Answers: </h3>
+                    {this.renderQuestion(this.props.questionSet, this.props.answers, classes)}
+
+                    <div className="play-btn">
+                        <Button component={Link} to="/game" variant="contained" color="secondary" size="large" fullWidth onClick={() => this.props.playAgain()}>
+                            Play Again
+                            </Button>
+                    </div>
+                    <div className="setting-btn">
+                        <Button component={Link} to="/" variant="contained" color="primary" size="large">
+                            Home
+                            </Button>
+                    </div>
+
                 </div>
             </div>
         )

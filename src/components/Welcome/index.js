@@ -12,8 +12,8 @@ class Welcome extends Component {
 
         return (
             <div className="just-centering">
-                <h1 className="game-description"><b>Did you get wrecked by ModReg?</b></h1>
-                <h1><b>Get to know more modules by taking these quizes!</b></h1>
+                <h1 className="game-description"><b>Got wrecked by ModReg?</b></h1>
+                <h1><b>Discover more modules by taking this quiz!</b></h1>
                 <div className="play-btn">
                     <Button component={ Link } to="/game" variant="contained" color="secondary" size="large" fullWidth={true}>
                         Play
@@ -21,7 +21,7 @@ class Welcome extends Component {
                 </div>
                 <div className="setting-btn">
                     <Button component={ Link } to="/settings" variant="contained" color="primary" size="large">
-                        Setting
+                        Settings
                     </Button>
                 </div>
 
