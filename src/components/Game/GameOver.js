@@ -8,6 +8,7 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import { withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import './game.css';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 const styles = {
     greenBackGround: {
@@ -55,7 +56,7 @@ class GameOver extends React.Component {
         console.log(answers);
 
         return (questionSet.map((i, index) => (answers[index].moduleCode === i.moduleCode ? (<ExpansionPanel>
-            <ExpansionPanelSummary className={classes.greenBackGround}><strong>(Correct)</strong>&nbsp;{index + 1}. {answers[index].moduleCode} {answers[index].title}</ExpansionPanelSummary>
+            <ExpansionPanelSummary  expandIcon={<ExpandMoreIcon />} className={classes.greenBackGround}><strong>(Correct)</strong>&nbsp;{index + 1}. {answers[index].moduleCode} {answers[index].title}</ExpansionPanelSummary>
             <ExpansionPanelDetails>
                 <p className="text-left">
                     <strong>You answered this question correctly.</strong>
@@ -64,7 +65,7 @@ class GameOver extends React.Component {
                 </p>
             </ExpansionPanelDetails>
         </ExpansionPanel>) : (<ExpansionPanel>
-            <ExpansionPanelSummary className={classes.redBackGround}>
+            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} className={classes.redBackGround}>
                 <strong>(Wrong)</strong>&nbsp;{index + 1}. {answers[index].moduleCode} {answers[index].title}
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>

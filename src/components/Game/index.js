@@ -14,6 +14,7 @@ import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import { withStyles } from '@material-ui/core/styles';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 const styles = {
     root: {
@@ -165,8 +166,8 @@ class Game extends Component {
             <h2>Time: {new Date().getTime()/1000 - this.state.startTime}</h2>
             <p>Answers: </p>
             {this.state.questionSet ?
-                this.state.questionSet.map((i, index) => <ExpansionPanel className={classes.root}>
-                    <ExpansionPanelSummary><div>{index + 1}. {i.moduleCode} {i.title}</div></ExpansionPanelSummary>
+                this.state.questionSet.map((i, index) => <ExpansionPanel>
+                    <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}><div>{index + 1}. {i.moduleCode} {i.title}</div></ExpansionPanelSummary>
                     <ExpansionPanelDetails><div><p className="text-left">{i.description}</p></div></ExpansionPanelDetails>
                 </ExpansionPanel>)
                 : <p>You did not answer anything!</p>
