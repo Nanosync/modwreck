@@ -257,7 +257,7 @@ class Game extends Component {
                                 // isLinearGradient={true}
                                 size={80}
                                 isPlaying
-                                durationSeconds={this.props.settings.time * 60}
+                                durationSeconds={this.props.settings.time}
                                 colors={[
                                     ['#00ff00', .33],
                                     ['#F7B801', .33],
