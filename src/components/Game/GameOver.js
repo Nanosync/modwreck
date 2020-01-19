@@ -17,6 +17,30 @@ const styles = {
 };
 
 class GameOver extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {
+            disableButtton: false,
+            nameInput: "",
+        }
+    }
+    handleChange = (e) => {
+        let nam = e.target.name;
+        let val = e.target.value;
+        this.setState({
+            [nam]: val
+        })
+    }
+    handleSubmit = (e) => {
+        e.preventDefault()
+        this.setState({
+            disableButtton: true
+        })
+        console.log("UPLOAD ME PLZ")
+        console.log(this.state.nameInput, this.props.score * 100 / this.props.timeTaken)
+        // do some thing online
+    }
+
     renderQuestion(questionSet, answers, classes) {
         if (questionSet === null) {
             return <p>You did not answer any questions.</p>;
@@ -43,6 +67,11 @@ class GameOver extends React.Component {
                 <h1>Game over</h1>
                 <h2>Score: {this.props.score}</h2>
                 <h2>Time: {this.props.timeTaken.toFixed(2)} seconds</h2>
+                <h2>Final Score: {this.props.score * 100 / this.props.timeTaken.toFixed(2)}</h2>
+                <form onSubmit={this.handleSubmit} >
+                    <input type="text" onChange={this.handleChange} name="nameInput" value={this.state.nameInput} placeholder="Name" autoComplete="off" disabled={this.state.disableButtton}/>
+                    <input type="submit" disabled={this.state.disableButtton}/>
+                </form>
                 <p>Answers: </p>
 {/*<<<<<<< HEAD*/}
                 {/*{this.props.questionSet ?*/}
