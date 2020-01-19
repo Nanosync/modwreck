@@ -18,6 +18,8 @@ import { withStyles } from '@material-ui/core/styles';
 const styles = {
     root: {
         background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+        color: 'white',
+        fontWeight: 'bold',
     },
 };
 
@@ -248,22 +250,22 @@ class Game extends Component {
                         </Grid>
                         <Grid item xs={6}>
                             <div className="make-it-smaller">
-                                <Button size="large" variant="contained" color="primary" fullWidth value={answers[0].moduleCode} onClick={e => this.handleClick(e, questionSet, question.moduleCode)}>A) {answers[0].moduleCode} {answers[0].title}</Button>
+                                <Button className={classes.root} size="large" variant="contained" fullWidth value={answers[0].moduleCode} onClick={e => this.handleClick(e, questionSet, question.moduleCode)}>A) {answers[0].moduleCode} {answers[0].title}</Button>
                             </div>
                         </Grid>
                         <Grid item xs={6}>
                             <div className="make-it-smaller">
-                                <Button size="large" variant="contained" color="secondary" fullWidth value={answers[1].moduleCode} onClick={e => this.handleClick(e, questionSet, question.moduleCode)}>B) {answers[1].moduleCode} {answers[1].title}</Button>
+                                <Button size="large" variant="contained" className={classes.root} fullWidth value={answers[1].moduleCode} onClick={e => this.handleClick(e, questionSet, question.moduleCode)}>B) {answers[1].moduleCode} {answers[1].title}</Button>
                             </div>
                         </Grid>
                         <Grid item xs={6}>
                             <div className="make-it-smaller">
-                                <Button size="large" variant="contained" color="secondary" fullWidth value={answers[2].moduleCode} onClick={e => this.handleClick(e, questionSet, question.moduleCode)}>C) {answers[2].moduleCode} {answers[2].title}</Button>
+                                <Button size="large" variant="contained" className={classes.root} fullWidth value={answers[2].moduleCode} onClick={e => this.handleClick(e, questionSet, question.moduleCode)}>C) {answers[2].moduleCode} {answers[2].title}</Button>
                             </div>
                         </Grid>
                         <Grid item xs={6}>
                             <div className="make-it-smaller">
-                                <Button size="large" variant="contained" color="primary" fullWidth value={answers[3].moduleCode} onClick={e => this.handleClick(e, questionSet, question.moduleCode)}>D) {answers[3].moduleCode} {answers[3].title}</Button>
+                                <Button size="large" variant="contained" className={classes.root} fullWidth value={answers[3].moduleCode} onClick={e => this.handleClick(e, questionSet, question.moduleCode)}>D) {answers[3].moduleCode} {answers[3].title}</Button>
                             </div>
                         </Grid>
 
