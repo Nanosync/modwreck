@@ -3,13 +3,13 @@ import WelcomePage from './components/Welcome';
 import SettingsPage from './components/Settings';
 import GamePage from './components/Game';
 import './assets/App.css'
-import {ScalingSquaresSpinner} from "react-epic-spinners";
+import { ScalingSquaresSpinner } from "react-epic-spinners";
 import ParticlesBg from 'particles-bg';
-import {TransitionGroup, CSSTransition} from 'react-transition-group';
+import { TransitionGroup, CSSTransition } from 'react-transition-group';
 
 
 import {
-    BrowserRouter as Router,
+    HashRouter as Router,
     Route,
     Link,
     Switch
@@ -24,7 +24,7 @@ function App() {
                     <h1 className="game-title-font"><b>ModWreck</b></h1>
                 </div>
                 <div className="spinner-container">
-                    <ScalingSquaresSpinner color="#e1e1e1" size="150" className="spinner"/>
+                    <ScalingSquaresSpinner color="#e1e1e1" size="150" className="spinner" />
                 </div>
             </div>
             <div>
@@ -36,6 +36,7 @@ function App() {
                                     <Route path="/" exact component={WelcomePage} />
                                     <Route path="/settings" component={SettingsPage} />
                                     <Route path="/game" component={GamePage} />
+                                    <Route component={() => (<div>404 Not Found</div>)} />
                                 </Switch>
                             </CSSTransition>
                         </TransitionGroup>
