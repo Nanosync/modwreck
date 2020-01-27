@@ -1,22 +1,22 @@
 {
   "files": {
     "main.css": "/modwreck/static/css/main.4f3e0f06.chunk.css",
-    "main.js": "/modwreck/static/js/main.00dab706.chunk.js",
-    "main.js.map": "/modwreck/static/js/main.00dab706.chunk.js.map",
+    "main.js": "/modwreck/static/js/main.5c48b1ac.chunk.js",
+    "main.js.map": "/modwreck/static/js/main.5c48b1ac.chunk.js.map",
     "runtime-main.js": "/modwreck/static/js/runtime-main.87ea321b.js",
     "runtime-main.js.map": "/modwreck/static/js/runtime-main.87ea321b.js.map",
-    "static/js/2.0d0501c1.chunk.js": "/modwreck/static/js/2.0d0501c1.chunk.js",
-    "static/js/2.0d0501c1.chunk.js.map": "/modwreck/static/js/2.0d0501c1.chunk.js.map",
+    "static/js/2.d22e5d88.chunk.js": "/modwreck/static/js/2.d22e5d88.chunk.js",
+    "static/js/2.d22e5d88.chunk.js.map": "/modwreck/static/js/2.d22e5d88.chunk.js.map",
     "index.html": "/modwreck/index.html",
-    "precache-manifest.9831ae4cd6622ea30a5a264d995a1977.js": "/modwreck/precache-manifest.9831ae4cd6622ea30a5a264d995a1977.js",
+    "precache-manifest.2a6261136e832971ad9a486f5b9da492.js": "/modwreck/precache-manifest.2a6261136e832971ad9a486f5b9da492.js",
     "service-worker.js": "/modwreck/service-worker.js",
     "static/css/main.4f3e0f06.chunk.css.map": "/modwreck/static/css/main.4f3e0f06.chunk.css.map",
-    "static/js/2.0d0501c1.chunk.js.LICENSE": "/modwreck/static/js/2.0d0501c1.chunk.js.LICENSE"
+    "static/js/2.d22e5d88.chunk.js.LICENSE": "/modwreck/static/js/2.d22e5d88.chunk.js.LICENSE"
   },
   "entrypoints": [
     "static/js/runtime-main.87ea321b.js",
-    "static/js/2.0d0501c1.chunk.js",
+    "static/js/2.d22e5d88.chunk.js",
     "static/css/main.4f3e0f06.chunk.css",
-    "static/js/main.00dab706.chunk.js"
+    "static/js/main.5c48b1ac.chunk.js"
   ]
 }
