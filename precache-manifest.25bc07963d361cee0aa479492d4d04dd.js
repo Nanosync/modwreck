@@ -1,10 +1,10 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "0f2b1b6b0160752961f34776cb168bed",
+    "revision": "e5e202f1f19da034f3a06fe92c871b29",
     "url": "/modwreck/index.html"
   },
   {
-    "revision": "c4f33b9bd43f5209146e",
+    "revision": "6ca6271efe42de9f89b3",
     "url": "/modwreck/static/css/main.4f3e0f06.chunk.css"
   },
   {
@@ -16,8 +16,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/modwreck/static/js/2.d22e5d88.chunk.js.LICENSE"
   },
   {
-    "revision": "c4f33b9bd43f5209146e",
-    "url": "/modwreck/static/js/main.a187dc75.chunk.js"
+    "revision": "6ca6271efe42de9f89b3",
+    "url": "/modwreck/static/js/main.729629c6.chunk.js"
   },
   {
     "revision": "4119aee35b2e9eefcc3e",
